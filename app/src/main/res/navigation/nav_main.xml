@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/groupsFragment">
+
+    <fragment
+        android:id="@+id/groupsFragment"
+        android:name="com.example.teamprojectsolocode.GroupsFragment"
+        android:label="나의 팀"
+        tools:layout="@layout/fragment_groups">
+        <action
+            android:id="@+id/action_groupsFragment_to_editTeamFragment"
+            app:destination="@id/editTeamFragment" />
+        <action
+            android:id="@+id/action_groupsFragment_to_scheduleFragment2"
+            app:destination="@id/scheduleFragment" />
+        <action
+            android:id="@+id/action_groupsFragment_to_searchTeamFragment"
+            app:destination="@id/searchTeamFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/scheduleFragment"
+        android:name="com.example.teamprojectsolocode.ScheduleFragment"
+        android:label="나의 활동"
+        tools:layout="@layout/fragment_schedule" />
+    <fragment
+        android:id="@+id/editTeamFragment"
+        android:name="com.example.teamprojectsolocode.EditTeamFragment"
+        android:label="팀 생성"
+        tools:layout="@layout/fragment_edit_team" />
+    <fragment
+        android:id="@+id/searchTeamFragment"
+        android:name="com.example.teamprojectsolocode.SearchTeamFragment"
+        android:label="팀 검색"
+        tools:layout="@layout/fragment_search_team" />
+</navigation>
