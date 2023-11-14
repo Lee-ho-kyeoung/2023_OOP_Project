@@ -2,4 +2,7 @@
     <string name="app_name">TEAMPROJECTsolocode</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_notice">NoticeActivity</string>
+    <string name="title_activity_group_info">GroupInfoActivity</string>
+    <string name="title_activity_group_info2">GroupInfoActivity2</string>
 </resources>
