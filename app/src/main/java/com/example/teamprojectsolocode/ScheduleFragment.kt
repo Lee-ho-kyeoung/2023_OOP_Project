@@ -51,7 +51,7 @@ class ScheduleFragment : Fragment() {
         // 각각의 스케줄에 마진 넣기
         binding.recSchedules.addItemDecoration(RecyclerViewDecoration(30))
         // Inflate the layout for this fragment
-        return binding?.root // binding이 최상위 view가 되기 때문에
+        return binding.root // binding이 최상위 view가 되기 때문에
     }
 
     // view가 다 binding이 되어서 create 되고난 이후 네비게이션 및 모든 설정 이후

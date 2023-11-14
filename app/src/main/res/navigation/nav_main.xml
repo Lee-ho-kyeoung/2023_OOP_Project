@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_groupsFragment_to_searchTeamFragment"
             app:destination="@id/searchTeamFragment" />
+        <action
+            android:id="@+id/action_groupsFragment_to_testTeamFragment"
+            app:destination="@id/testTeamFragment" />
     </fragment>
     <fragment
         android:id="@+id/scheduleFragment"
@@ -44,4 +47,9 @@
         android:name="com.example.teamprojectsolocode.MakeScheduleFragment"
         android:label="새 일정"
         tools:layout="@layout/fragment_make_schedule" />
+    <fragment
+        android:id="@+id/testTeamFragment"
+        android:name="com.example.teamprojectsolocode.TestTeamFragment"
+        android:label="fragment_test_team"
+        tools:layout="@layout/fragment_test_team" />
 </navigation>
