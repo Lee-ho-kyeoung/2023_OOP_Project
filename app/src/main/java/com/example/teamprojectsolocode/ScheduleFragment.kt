@@ -17,6 +17,7 @@ import com.example.teamprojectsolocode.databinding.FragmentScheduleBinding
  */
 class ScheduleFragment : Fragment() {
 
+    //Recycler View용 할 일 배열
     private val schedules = arrayOf(
         Schedule("To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기", "23.11.13 (월)", "11:30 PM", "D-day"),
         Schedule("저녁 만들어 먹기", "23.11.14 (화)", "6:30 PM", "1-day"),
@@ -35,6 +36,7 @@ class ScheduleFragment : Fragment() {
         Schedule("임베디드 과제 제출하기", "23.11.16 (목)", "8:00 PM", "3-day"),
     )
 
+    // 바인딩 만들어주기
     private lateinit var binding: FragmentScheduleBinding // binding
 
     override fun onCreateView(
@@ -42,6 +44,7 @@ class ScheduleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentScheduleBinding.inflate(inflater) // binding
+        // Recycler View에 필요한 layoutManager와 adapter 만들기
         binding.recSchedules.layoutManager = LinearLayoutManager(context)
         binding.recSchedules.adapter = SchedulesAdapter(schedules)
 
@@ -55,7 +58,7 @@ class ScheduleFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.btnMakeSchedule?.setOnClickListener { // 팀 검색 버튼 누를 때 액션
+        binding?.btnMakeSchedule?.setOnClickListener { // 팀 추가 버튼 누를 때 액션
             findNavController().navigate(R.id.action_scheduleFragment_to_makeScheduleFragment) //Resource.id.navigation action
         }
     }
