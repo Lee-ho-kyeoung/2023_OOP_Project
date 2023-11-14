@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "596226813219",
+    "project_id": "opp-teamproject",
+    "storage_bucket": "opp-teamproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:596226813219:android:bc343157c25622831ef096",
+        "android_client_info": {
+          "package_name": "com.example.teamprojectsolocode"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfGpeOaWfNuv9ovtn8I5BbjR5RS0x3B_s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration) // 액션바(상단 화면 제목) 설정
         binding.bottomNav.setupWithNavController(navController) // 하단바(화면 전환) 설정
-        setContentView(binding.root)
+
+        setContentView(binding.root) // 기초 세팅
     }
 
     // Up(뒤로 가기) 버튼 설정

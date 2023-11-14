@@ -1,59 +1,69 @@
 package com.example.teamprojectsolocode
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.teamprojectsolocode.databinding.FragmentScheduleBinding
 
 /**
  * A simple [Fragment] subclass.
- * Use the [ScheduleFragment.newInstance] factory method to
+ * Use the [GroupsFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
 class ScheduleFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    //Recycler View용 할 일 배열
+    private val schedules = arrayOf(
+        Schedule("To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기", "23.11.13 (월)", "11:30 PM", "D-day"),
+        Schedule("저녁 만들어 먹기", "23.11.14 (화)", "6:30 PM", "1-day"),
+        Schedule("임베디드 과제 제출하기", "23.11.16 (목)", "8:00 PM", "3-day"),
+        Schedule("To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기", "23.11.13 (월)", "11:30 PM", "D-day"),
+        Schedule("저녁 만들어 먹기", "23.11.14 (화)", "6:30 PM", "1-day"),
+        Schedule("임베디드 과제 제출하기", "23.11.16 (목)", "8:00 PM", "3-day"),
+        Schedule("To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기", "23.11.13 (월)", "11:30 PM", "D-day"),
+        Schedule("저녁 만들어 먹기", "23.11.14 (화)", "6:30 PM", "1-day"),
+        Schedule("임베디드 과제 제출하기", "23.11.16 (목)", "8:00 PM", "3-day"),
+        Schedule("To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기", "23.11.13 (월)", "11:30 PM", "D-day"),
+        Schedule("저녁 만들어 먹기", "23.11.14 (화)", "6:30 PM", "1-day"),
+        Schedule("임베디드 과제 제출하기", "23.11.16 (목)", "8:00 PM", "3-day"),
+        Schedule("To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기", "23.11.13 (월)", "11:30 PM", "D-day"),
+        Schedule("저녁 만들어 먹기", "23.11.14 (화)", "6:30 PM", "1-day"),
+        Schedule("임베디드 과제 제출하기", "23.11.16 (목)", "8:00 PM", "3-day"),
+    )
+
+    // 바인딩 만들어주기
+    private lateinit var binding: FragmentScheduleBinding // binding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentScheduleBinding.inflate(inflater) // binding
+        // Recycler View에 필요한 layoutManager와 adapter 만들기
+        binding.recSchedules.layoutManager = LinearLayoutManager(context)
+        binding.recSchedules.adapter = SchedulesAdapter(schedules)
+
+        // 각각의 스케줄에 마진 넣기
+        binding.recSchedules.addItemDecoration(RecyclerViewDecoration(30))
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_schedule, container, false)
+        return binding?.root // binding이 최상위 view가 되기 때문에
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ScheduleFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ScheduleFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    // view가 다 binding이 되어서 create 되고난 이후 네비게이션 및 모든 설정 이후
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding?.btnMakeSchedule?.setOnClickListener { // 팀 추가 버튼 누를 때 액션
+            findNavController().navigate(R.id.action_scheduleFragment_to_makeScheduleFragment) //Resource.id.navigation action
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
     }
 }
