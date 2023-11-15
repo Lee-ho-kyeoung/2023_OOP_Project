@@ -14,7 +14,9 @@ class GroupsFragment : Fragment() {
 
     val teams = arrayOf(
         Teams("객프 팀", "객체지향 프로그래밍 팀입니다."),
-        Teams("AD 팀", "Adventure Design 팀입니다.")
+        Teams("AD 팀", "Adventure Design 팀입니다."),
+        Teams("임베 팀", "임베디드 SW 입문 팀입니다."),
+        Teams("아무 팀", "아무 팀입니다.")
     )
 
     private lateinit var binding: FragmentGroupsBinding //binding
@@ -22,13 +24,13 @@ class GroupsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentGroupsBinding.inflate(inflater) //binding
 
         binding.recTeams.layoutManager = LinearLayoutManager(context) //recycler view 설정
-        binding.recTeams.adapter = TeamsAdapter(teams) {//실제로 데이터가 주어졌을 때 recycler view에 랜더링하는 다리 역할
+        /*binding.recTeams.adapter = TeamsAdapter(teams) {//실제로 데이터가 주어졌을 때 recycler view에 랜더링하는 다리 역할
             findNavController().navigate(R.id.action_groupsFragment_to_testTeamFragment)//!!!!!이해 필요!!!!!
-        }
+        }*/
         // Inflate the layout for this fragment
         return binding.root // binding이 최상위 view가 되기 때문에
     }

@@ -75,7 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:background="@drawable/textbox_style"
+                    android:background="#E4E4E4"
                     android:text="팀 프로필 사진"
                     android:textAlignment="center"
                     android:textColor="#000000"
