@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.teamprojectsolocode.databinding.FragmentScheduleBinding
+import com.example.teamprojectsolocode.viewmodel.ScheduleViewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -17,24 +20,10 @@ import com.example.teamprojectsolocode.databinding.FragmentScheduleBinding
  */
 class ScheduleFragment : Fragment() {
 
-    //Recycler View용 할 일 배열
-    private val schedules = arrayOf(
-        Schedule("To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기", "23.11.13 (월)", "11:30 PM", "D-day"),
-        Schedule("저녁 만들어 먹기", "23.11.14 (화)", "6:30 PM", "1-day"),
-        Schedule("임베디드 과제 제출하기", "23.11.16 (목)", "8:00 PM", "3-day"),
-        Schedule("To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기", "23.11.13 (월)", "11:30 PM", "D-day"),
-        Schedule("저녁 만들어 먹기", "23.11.14 (화)", "6:30 PM", "1-day"),
-        Schedule("임베디드 과제 제출하기", "23.11.16 (목)", "8:00 PM", "3-day"),
-        Schedule("To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기", "23.11.13 (월)", "11:30 PM", "D-day"),
-        Schedule("저녁 만들어 먹기", "23.11.14 (화)", "6:30 PM", "1-day"),
-        Schedule("임베디드 과제 제출하기", "23.11.16 (목)", "8:00 PM", "3-day"),
-        Schedule("To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기", "23.11.13 (월)", "11:30 PM", "D-day"),
-        Schedule("저녁 만들어 먹기", "23.11.14 (화)", "6:30 PM", "1-day"),
-        Schedule("임베디드 과제 제출하기", "23.11.16 (목)", "8:00 PM", "3-day"),
-        Schedule("To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기To-Do List 만들기", "23.11.13 (월)", "11:30 PM", "D-day"),
-        Schedule("저녁 만들어 먹기", "23.11.14 (화)", "6:30 PM", "1-day"),
-        Schedule("임베디드 과제 제출하기", "23.11.16 (목)", "8:00 PM", "3-day"),
-    )
+    // viewModel 가져오고 초기화
+    private val viewModel: ScheduleViewModel by activityViewModels()
+    //Recycler View용 할 일 배열 (나중에 값을 ViewModel에서 가져옴)
+    private var scheduleList = arrayListOf<Schedule>()
 
     // 바인딩 만들어주기
     private lateinit var binding: FragmentScheduleBinding // binding
@@ -46,7 +35,7 @@ class ScheduleFragment : Fragment() {
         binding = FragmentScheduleBinding.inflate(inflater) // binding
         // Recycler View에 필요한 layoutManager와 adapter 만들기
         binding.recSchedules.layoutManager = LinearLayoutManager(context)
-        binding.recSchedules.adapter = SchedulesAdapter(schedules)
+        binding.recSchedules.adapter = SchedulesAdapter(scheduleList)
 
         // 각각의 스케줄에 마진 넣기
         binding.recSchedules.addItemDecoration(RecyclerViewDecoration(30))
@@ -57,6 +46,14 @@ class ScheduleFragment : Fragment() {
     // view가 다 binding이 되어서 create 되고난 이후 네비게이션 및 모든 설정 이후
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // viewModel의 scheduleList가 바뀌거나 scheduleList를 최초로 읽는다면
+        viewModel.scheduleList.observe(viewLifecycleOwner) {
+            //scheduleList에 viewModel의 리스트를 넣어줌
+            scheduleList = viewModel.scheduleList.value?: arrayListOf()
+            // adapter에 바뀐 scheduleList 다시 넣어주기
+            binding.recSchedules.adapter = SchedulesAdapter(scheduleList)
+        }
 
         binding?.btnMakeSchedule?.setOnClickListener { // 팀 추가 버튼 누를 때 액션
             findNavController().navigate(R.id.action_scheduleFragment_to_makeScheduleFragment) //Resource.id.navigation action

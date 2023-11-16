@@ -2,12 +2,13 @@ package com.example.teamprojectsolocode
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.teamprojectsolocode.databinding.ListScheduleBinding
 
 //Recycler View에 필요한 adapter 설정
 
-class SchedulesAdapter(private val schedules: Array<Schedule>)
+class SchedulesAdapter(private val schedules: ArrayList<Schedule>)
     : RecyclerView.Adapter<SchedulesAdapter.Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val binding = ListScheduleBinding.inflate(LayoutInflater.from(parent.context))
