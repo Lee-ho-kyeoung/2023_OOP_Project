@@ -28,13 +28,11 @@ class ScheduleRepository {
         val arrayList = arrayListOf<Schedule>()
         var num: Int = 1
         while(snapshot.child(num.toString()).exists()) {
-            arrayList.add(
-                Schedule(
+            arrayList.add(Schedule(
                 snapshot.child(num.toString()).child("todo").value.toString(),
                 snapshot.child(num.toString()).child("date").value.toString(),
                 snapshot.child(num.toString()).child("time").value.toString(),
-                snapshot.child(num.toString()).child("dDay").value.toString(),)
-            )
+                snapshot.child(num.toString()).child("dDay").value.toString(),))
             num++
         }
         return arrayList
