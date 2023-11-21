@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.teamprojectsolocode.Teams.Teams
-import com.example.teamprojectsolocode.Teams.TeamsAdapter
+import com.example.teamprojectsolocode.teams.Teams
+import com.example.teamprojectsolocode.teams.TeamsAdapter
 import com.example.teamprojectsolocode.databinding.FragmentGroupsBinding
 
 class GroupsFragment : Fragment() {

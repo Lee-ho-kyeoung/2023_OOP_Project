@@ -1,4 +1,4 @@
-package com.example.teamprojectsolocode
+package com.example.teamprojectsolocode.schedule
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.teamprojectsolocode.Schedule.Schedule
-import com.example.teamprojectsolocode.Schedule.SchedulesAdapter
+import com.example.teamprojectsolocode.R
+import com.example.teamprojectsolocode.RecyclerViewDecoration
 import com.example.teamprojectsolocode.databinding.FragmentScheduleBinding
 import com.example.teamprojectsolocode.viewmodel.ScheduleViewModel
 

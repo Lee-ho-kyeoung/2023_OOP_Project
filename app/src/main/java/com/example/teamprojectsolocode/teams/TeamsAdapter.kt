@@ -1,4 +1,4 @@
-package com.example.teamprojectsolocode.Teams
+package com.example.teamprojectsolocode.teams
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -3,7 +3,7 @@ package com.example.teamprojectsolocode.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.teamprojectsolocode.Schedule.Schedule
+import com.example.teamprojectsolocode.schedule.Schedule
 import com.example.teamprojectsolocode.repository.ScheduleRepository
 
 // ViewModel은 데이터를 자료구조 형식으로 기본적으로 가지고있음

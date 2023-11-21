@@ -1,4 +1,4 @@
-package com.example.teamprojectsolocode.Schedule
+package com.example.teamprojectsolocode.schedule
 
 // 할 일 클래스
 data class Schedule(val todo: String,

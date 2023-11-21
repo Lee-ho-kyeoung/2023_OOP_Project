@@ -1,7 +1,7 @@
 package com.example.teamprojectsolocode.repository
 
 import androidx.lifecycle.MutableLiveData
-import com.example.teamprojectsolocode.Schedule.Schedule
+import com.example.teamprojectsolocode.schedule.Schedule
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
