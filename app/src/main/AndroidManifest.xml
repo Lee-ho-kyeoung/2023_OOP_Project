@@ -13,29 +13,17 @@
         android:theme="@style/Theme.TEAMPROJECTsolocode"
         tools:targetApi="31">
         <activity
-            android:name=".GroupInfoActivity2"
-            android:exported="false"
-            android:label="@string/title_activity_group_info2"
-            android:theme="@style/Theme.TEAMPROJECTsolocode" />
-        <activity
-            android:name=".GroupInfoActivity"
-            android:exported="false"
-            android:label="@string/title_activity_group_info"
-            android:theme="@style/Theme.TEAMPROJECTsolocode" />
-        <activity
-            android:name=".NoticeActivity"
-            android:exported="false"
-            android:label="@string/title_activity_notice"
-            android:theme="@style/Theme.TEAMPROJECTsolocode" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".LoginActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

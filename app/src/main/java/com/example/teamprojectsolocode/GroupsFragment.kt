@@ -7,7 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.teamprojectsolocode.Teams.Teams
+import com.example.teamprojectsolocode.Teams.TeamsAdapter
 import com.example.teamprojectsolocode.databinding.FragmentGroupsBinding
 
 class GroupsFragment : Fragment() {
@@ -20,7 +21,6 @@ class GroupsFragment : Fragment() {
     )
 
     private lateinit var binding: FragmentGroupsBinding //binding
-    //private lateinit var mainActivity: MainActivity //시도했는데 안됌.. 질문할 것
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,9 +28,9 @@ class GroupsFragment : Fragment() {
         binding = FragmentGroupsBinding.inflate(inflater) //binding
 
         binding.recTeams.layoutManager = LinearLayoutManager(context) //recycler view 설정
-        /*binding.recTeams.adapter = TeamsAdapter(teams) {//실제로 데이터가 주어졌을 때 recycler view에 랜더링하는 다리 역할
-            findNavController().navigate(R.id.action_groupsFragment_to_testTeamFragment)//!!!!!이해 필요!!!!!
-        }*/
+        binding.recTeams.adapter = TeamsAdapter(teams) {//실제로 데이터가 주어졌을 때 recycler view에 랜더링하는 다리 역할
+            findNavController().navigate(R.id.action_groupsFragment_to_testTeamFragment)
+        }
         // Inflate the layout for this fragment
         return binding.root // binding이 최상위 view가 되기 때문에
     }
@@ -38,13 +38,6 @@ class GroupsFragment : Fragment() {
     // view가 다 binding이 되어서 create 되고난 이후 네비게이션 및 모든 설정 이후
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val teamsAdapter = TeamsAdapter(teams) {
-            findNavController().navigate(R.id.action_groupsFragment_to_testTeamFragment)//!!!!!이해 필요!!!!!
-        }
-
-        val recyclerView: RecyclerView = view.findViewById(R.id.rec_teams)//!!!!!이해 필요!!!!!
-        recyclerView.adapter = teamsAdapter//!!!!!이해 필요!!!!!
 
         binding.btnTeamSearch.setOnClickListener { // 팀 검색 버튼 누를 때 액션
             findNavController().navigate(R.id.action_groupsFragment_to_searchTeamFragment) //Resource.id.navigation action
@@ -55,13 +48,7 @@ class GroupsFragment : Fragment() {
         }
     }
 
-    /*
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
-    } */
-
-    /*
+/*
     companion object {
         // TODO: Rename and change types and number of parameters
         @JvmStatic

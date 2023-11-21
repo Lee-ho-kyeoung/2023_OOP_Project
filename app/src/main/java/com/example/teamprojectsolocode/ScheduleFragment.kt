@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.teamprojectsolocode.Schedule.Schedule
+import com.example.teamprojectsolocode.Schedule.SchedulesAdapter
 import com.example.teamprojectsolocode.databinding.FragmentScheduleBinding
 import com.example.teamprojectsolocode.viewmodel.ScheduleViewModel
 

@@ -1,8 +1,7 @@
-package com.example.teamprojectsolocode
+package com.example.teamprojectsolocode.Schedule
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.teamprojectsolocode.databinding.ListScheduleBinding
 
