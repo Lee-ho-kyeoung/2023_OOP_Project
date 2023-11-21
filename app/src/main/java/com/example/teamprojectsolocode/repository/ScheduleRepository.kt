@@ -1,6 +1,5 @@
 package com.example.teamprojectsolocode.repository
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.teamprojectsolocode.Schedule
 import com.google.firebase.database.DataSnapshot
@@ -27,14 +26,14 @@ class ScheduleRepository {
 
     fun makeScheduleList(snapshot: DataSnapshot): ArrayList<Schedule> {
         val arrayList = arrayListOf<Schedule>()
-        var num: Int = 1
-        while(snapshot.child(num.toString()).exists()) {
-            arrayList.add(Schedule(
-                snapshot.child(num.toString()).child("todo").value.toString(),
-                snapshot.child(num.toString()).child("date").value.toString(),
-                snapshot.child(num.toString()).child("time").value.toString(),
-                snapshot.child(num.toString()).child("dDay").value.toString(),))
-            num++
+        for (num in 0 .. 20) {
+            if (snapshot.child(num.toString()).exists()) {
+                arrayList.add(Schedule(
+                    snapshot.child(num.toString()).child("todo").value.toString(),
+                    snapshot.child(num.toString()).child("date").value.toString(),
+                    snapshot.child(num.toString()).child("time").value.toString(),
+                    snapshot.child(num.toString()).child("dDay").value.toString(),))
+            }
         }
         return arrayList
     }
