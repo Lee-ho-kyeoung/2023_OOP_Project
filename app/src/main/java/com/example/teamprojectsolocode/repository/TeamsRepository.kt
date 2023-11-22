@@ -28,7 +28,7 @@ class TeamsRepository {
 
     fun makeTeamList(snapshot: DataSnapshot): ArrayList<Teams> {
         val arrayList = arrayListOf<Teams>()
-        var num: Int = 0
+        var num: Int = 1
         while(snapshot.child(num.toString()).exists()) {
             arrayList.add( Teams(
                 snapshot.child(num.toString()).child("name").value.toString(),
