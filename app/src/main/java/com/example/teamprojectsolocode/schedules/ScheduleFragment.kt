@@ -1,4 +1,4 @@
-package com.example.teamprojectsolocode.schedule
+package com.example.teamprojectsolocode.schedules
 
 import android.os.Bundle
 import android.view.LayoutInflater
