@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/scheduleFragment"
-        android:name="com.example.teamprojectsolocode.schedule.ScheduleFragment"
+        android:name="com.example.teamprojectsolocode.schedules.ScheduleFragment"
         android:label="나의 활동"
         tools:layout="@layout/fragment_schedule" >
         <action
@@ -44,7 +44,7 @@
         tools:layout="@layout/fragment_search_team" />
     <fragment
         android:id="@+id/makeScheduleFragment"
-        android:name="com.example.teamprojectsolocode.schedule.MakeScheduleFragment"
+        android:name="com.example.teamprojectsolocode.schedules.MakeScheduleFragment"
         android:label="새 일정"
         tools:layout="@layout/fragment_make_schedule" />
     <fragment
