@@ -35,7 +35,7 @@
             android:layout_height="60dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/butten_style"
-            android:inputType="text"
+            android:inputType="textMultiLine"
             android:textSize="12sp"
             android:hint="해야 할 일을 입력하세요"
             android:autofillHints=""
@@ -90,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="오전"
+                android:text="     "
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -99,7 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.1"
-                android:text="10"
+                android:text="__"
                 android:textSize="24sp" />
 
             <TextView
@@ -115,7 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.1"
-                android:text="30"
+                android:text="__"
                 android:textSize="24sp" />
 
             <TextView
@@ -130,8 +130,8 @@
                 android:id="@+id/btn_make"
                 android:layout_width="120dp"
                 android:layout_height="50dp"
+                android:background="@drawable/schedule_make_style"
                 android:text="만들기"
-                android:background="@drawable/textbox_style"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 

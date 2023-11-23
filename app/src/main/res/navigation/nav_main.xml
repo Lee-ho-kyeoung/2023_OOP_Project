@@ -46,7 +46,11 @@
         android:id="@+id/makeScheduleFragment"
         android:name="com.example.teamprojectsolocode.schedules.MakeScheduleFragment"
         android:label="새 일정"
-        tools:layout="@layout/fragment_make_schedule" />
+        tools:layout="@layout/fragment_make_schedule" >
+        <action
+            android:id="@+id/action_makeScheduleFragment_to_scheduleFragment"
+            app:destination="@id/scheduleFragment" />
+    </fragment>
     <fragment
         android:id="@+id/testTeamFragment"
         android:name="com.example.teamprojectsolocode.TestTeamFragment"
