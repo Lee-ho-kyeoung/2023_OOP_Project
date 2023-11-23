@@ -8,12 +8,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.teamprojectsolocode.databinding.ActivityMainBinding
 import com.example.teamprojectsolocode.firebasedb.FBRef
-import com.google.firebase.auth.ktx.auth
+import com.example.teamprojectsolocode.schedules.Schedule
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding // Up 버튼 설정시 지역 변수로하면 binding이 사용불가하기 때문에 전역변수로 설정
@@ -45,10 +43,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkNewUid() {
-        FBRef.uidRef.addValueEventListener(object: ValueEventListener {
+        FBRef.uidRef.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(!snapshot.exists()) {
-                    FBRef.uidRef.child("scheduleList").child("0").setValue("")
+                    FBRef.uidRef.child("scheduleList").child("0").setValue(Schedule("todo", "date", "time", "dday"))
                     FBRef.uidRef.child("myTeamList").child("0").setValue("")
                 }
             }

@@ -15,7 +15,7 @@ class ScheduleViewModel: ViewModel() {
     private val _scheduleList = MutableLiveData(testList)
 
     // 리포지토리 가져오기
-    val repository = ScheduleRepository()
+    private val repository = ScheduleRepository()
     init {
         repository.observeScheduleList(_scheduleList)
     }

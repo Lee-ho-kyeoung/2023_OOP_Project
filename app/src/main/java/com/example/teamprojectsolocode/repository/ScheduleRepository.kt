@@ -28,7 +28,7 @@ class ScheduleRepository {
                     snapshot.child(num.toString()).child("todo").value.toString(),
                     snapshot.child(num.toString()).child("date").value.toString(),
                     snapshot.child(num.toString()).child("time").value.toString(),
-                    snapshot.child(num.toString()).child("dDay").value.toString())
+                    snapshot.child(num.toString()).child("dday").value.toString())
                 )
             }
         }
