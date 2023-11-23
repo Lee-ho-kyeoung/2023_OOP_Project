@@ -25,7 +25,9 @@ class EditTeamFragment : Fragment() {
         binding = FragmentEditTeamBinding.inflate(inflater)
 
         binding.btnCreateTeam.setOnClickListener {
-
+            val teamName = binding.txtInputTeamName.toString()
+            val pinNum = binding.txtInputTeamCode.toString()
+            val teamNotice = binding.txtInputTeamNotice.toString()
         }
 
         // Inflate the layout for this fragment

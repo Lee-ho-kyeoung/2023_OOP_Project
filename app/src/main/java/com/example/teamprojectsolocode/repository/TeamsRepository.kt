@@ -28,15 +28,16 @@ class TeamsRepository {
 
     fun makeTeamList(snapshot: DataSnapshot): ArrayList<Teams> {
         val arrayList = arrayListOf<Teams>()
-        var num: Int = 0
-        while(snapshot.child(num.toString()).exists()) {
-            arrayList.add( Teams(
-                snapshot.child(num.toString()).child("name").value.toString(),
-                snapshot.child(num.toString()).child("notice").value.toString(),
-                snapshot.child(num.toString()).child("pin").value.toString()
+        for (num in 0..snapshot.childrenCount) {
+            if (snapshot.child(num.toString()).exists()) {
+                arrayList.add(
+                    Teams(
+                        snapshot.child(num.toString()).child("name").value.toString(),
+                        snapshot.child(num.toString()).child("notice").value.toString(),
+                        snapshot.child(num.toString()).child("pin").value.toString()
+                    )
                 )
-            )
-            num++
+            }
         }
         return arrayList
     }
