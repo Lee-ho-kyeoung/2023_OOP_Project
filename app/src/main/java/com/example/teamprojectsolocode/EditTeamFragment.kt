@@ -7,13 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.teamprojectsolocode.databinding.FragmentEditTeamBinding
-import com.example.teamprojectsolocode.databinding.FragmentGroupsBinding
 import com.example.teamprojectsolocode.viewmodel.TeamsViewModel
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class EditTeamFragment : Fragment() {
 
     val viewModel: TeamsViewModel by activityViewModels()
     private lateinit var binding: FragmentEditTeamBinding //binding
+    private val database = Firebase.database
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -28,6 +30,8 @@ class EditTeamFragment : Fragment() {
             val teamName = binding.txtInputTeamName.toString()
             val pinNum = binding.txtInputTeamCode.toString()
             val teamNotice = binding.txtInputTeamNotice.toString()
+
+
         }
 
         // Inflate the layout for this fragment

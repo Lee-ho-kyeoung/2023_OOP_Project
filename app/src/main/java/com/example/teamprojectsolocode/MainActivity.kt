@@ -7,6 +7,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.teamprojectsolocode.databinding.ActivityMainBinding
+import com.example.teamprojectsolocode.firebasedb.FBRef
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -16,8 +17,6 @@ import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding // Up 버튼 설정시 지역 변수로하면 binding이 사용불가하기 때문에 전역변수로 설정
-    private val uid = Firebase.auth.uid ?: ""
-    private val database = Firebase.database
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration) // 액션바(상단 화면 제목) 설정
         binding.bottomNav.setupWithNavController(navController) // 하단바(화면 전환) 설정
 
-        checkNewUid(uid)
+        checkNewUid()
 
         setContentView(binding.root) // 기초 세팅
     }
@@ -45,14 +44,12 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp() // navController가 있으면 뒤로가기 없으면 기본(기본은 뒤로가기 x)
     }
 
-    private fun checkNewUid(uid : String) {
-        val uidRef = database.getReference("user/${uid}")
-
-        uidRef.addValueEventListener(object: ValueEventListener {
+    private fun checkNewUid() {
+        FBRef.uidRef.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(!snapshot.exists()) {
-                    database.reference.child("user").child(uid).child("scheduleList").child("0").setValue("")
-                    database.reference.child("user").child(uid).child("teamList").child("0").setValue("")
+                    FBRef.uidRef.child("scheduleList").child("0").setValue("")
+                    FBRef.uidRef.child("myTeamList").child("0").setValue("")
                 }
             }
             override fun onCancelled(error: DatabaseError) {

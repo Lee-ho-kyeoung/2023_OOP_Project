@@ -1,22 +1,15 @@
 package com.example.teamprojectsolocode.repository
 
 import androidx.lifecycle.MutableLiveData
-import com.example.teamprojectsolocode.schedules.Schedule
+import com.example.teamprojectsolocode.firebasedb.FBRef
 import com.example.teamprojectsolocode.team.Teams
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 
 class TeamsRepository {
-    private val database = Firebase.database
-    private val uid = Firebase.auth.uid
-    val teamListRef = database.getReference("user/${uid}/teamList")
-
     fun observeTeamList(teamlist: MutableLiveData<ArrayList<Teams>>) {
-        teamListRef.addValueEventListener(object: ValueEventListener{
+        FBRef.myTeamListRef.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 teamlist.postValue(makeTeamList(snapshot))
             }
