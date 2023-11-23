@@ -7,9 +7,13 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.teamprojectsolocode.databinding.ActivityMainBinding
+import com.example.teamprojectsolocode.repository.ScheduleRepository
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding // Up 버튼 설정시 지역 변수로하면 binding이 사용불가하기 때문에 전역변수로 설정
+    private val uid = Firebase.auth.uid ?: ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +28,8 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration) // 액션바(상단 화면 제목) 설정
         binding.bottomNav.setupWithNavController(navController) // 하단바(화면 전환) 설정
+
+        ScheduleRepository().checkNewUid(uid)
 
         setContentView(binding.root) // 기초 세팅
     }
