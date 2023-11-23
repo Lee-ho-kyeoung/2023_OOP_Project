@@ -6,10 +6,12 @@ import com.google.firebase.ktx.Firebase
 
 class FBRef {
     companion object {
-        private val uid = Firebase.auth.uid ?: ""
         private val database = Firebase.database
+        val uid = Firebase.auth.uid ?: ""
 
         val uidRef = database.getReference("user/${uid}")
+        val teamListRef = database.getReference("teamList")
+
         val myTeamListRef = database.getReference("user/${uid}/myTeamList")
         val scheduleListRef = database.getReference("user/$uid/scheduleList")
     }
