@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(!snapshot.exists()) {
                     FBRef.uidRef.child("scheduleList").child("0").setValue(Schedule("todo", "date", "time", "dday"))
-                    FBRef.uidRef.child("myTeamList").child("0").setValue("")
+                    FBRef.uidRef.child("myTeamList").child("0").setValue("내 팀 목록")
                 }
             }
             override fun onCancelled(error: DatabaseError) {

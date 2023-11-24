@@ -36,7 +36,11 @@
         android:id="@+id/editTeamFragment"
         android:name="com.example.teamprojectsolocode.EditTeamFragment"
         android:label="팀 생성"
-        tools:layout="@layout/fragment_edit_team" />
+        tools:layout="@layout/fragment_edit_team" >
+        <action
+            android:id="@+id/action_editTeamFragment_to_groupsFragment"
+            app:destination="@id/groupsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchTeamFragment"
         android:name="com.example.teamprojectsolocode.SearchTeamFragment"
