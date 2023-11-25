@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_scheduleFragment_to_makeScheduleFragment"
             app:destination="@id/makeScheduleFragment" />
+        <action
+            android:id="@+id/action_scheduleFragment_to_editScheduleFragment"
+            app:destination="@id/editScheduleFragment" />
     </fragment>
     <fragment
         android:id="@+id/editTeamFragment"
@@ -56,4 +59,12 @@
         android:name="com.example.teamprojectsolocode.TestTeamFragment"
         android:label="fragment_test_team"
         tools:layout="@layout/fragment_test_team" />
+    <fragment
+        android:id="@+id/editScheduleFragment"
+        android:name="com.example.teamprojectsolocode.schedules.EditScheduleFragment"
+        android:label="일정 수정">
+        <action
+            android:id="@+id/action_editScheduleFragment_to_scheduleFragment"
+            app:destination="@id/scheduleFragment" />
+    </fragment>
 </navigation>

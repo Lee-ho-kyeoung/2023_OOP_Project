@@ -2,6 +2,7 @@ package com.example.teamprojectsolocode.schedules
 
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,20 +10,20 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.teamprojectsolocode.R
-import com.example.teamprojectsolocode.databinding.FragmentMakeScheduleBinding
+import com.example.teamprojectsolocode.databinding.FragmentEditScheduleBinding
 import com.example.teamprojectsolocode.firebasedb.FBRef
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.getValue
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import kotlin.math.log
 
-// 나중에 받을 요일이 숫자기 때문에, 배열에 한글로 값을 넣어줌
 private val dayOfWeekArray = arrayOf("일", "월", "화", "수", "목", "금", "토")
+class EditScheduleFragment : Fragment() {
 
-class MakeScheduleFragment : Fragment() {
-
-    private lateinit var binding: FragmentMakeScheduleBinding //binding
+    private lateinit var binding: FragmentEditScheduleBinding //binding
 
     private val currentTime: Long = System.currentTimeMillis() // 현재 시간을 받아줌
     private val today = Calendar.getInstance()
@@ -42,8 +43,11 @@ class MakeScheduleFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
+        val receivedBundle = arguments
+        val itemNum = receivedBundle?.getInt("ITEM_NUM")
+        binding = FragmentEditScheduleBinding.inflate(inflater)
+        setAllText(itemNum?:0)
 
-        binding = FragmentMakeScheduleBinding.inflate(inflater)
         // 요일을 선택할 때마다 호출되는 함수
         isCalendarChange()
 
@@ -57,9 +61,9 @@ class MakeScheduleFragment : Fragment() {
                 return@setOnClickListener
             }
             // 팀 생성
-            makeSchedule(todo, date, time, dday)
+            editSchedule(todo, date, time, dday, itemNum?:0)
 
-            findNavController().navigate(R.id.action_makeScheduleFragment_to_scheduleFragment)
+            findNavController().navigate(R.id.action_editScheduleFragment_to_scheduleFragment)
         }
 
         // 시간 설정 버튼 눌렀을 때
@@ -69,10 +73,12 @@ class MakeScheduleFragment : Fragment() {
                 { _, hourOfDay, minute ->
                     // 선택한 시간을 처리
                     hour = hourOfDay
-                    val viewHour = (hour%13 + hour/13)
+                    val viewHour = (hour % 13 + hour / 13)
                     minu = minute
-                    ampm = if (hour in 0 .. 11) "AM" else "PM"
-                    time = "${viewHour.toString().padStart(2,'0')}:${minu.toString().padStart(2,'0')} $ampm"
+                    ampm = if (hour in 0..11) "AM" else "PM"
+                    time = "${viewHour.toString().padStart(2, '0')}:${
+                        minu.toString().padStart(2, '0')
+                    } $ampm"
                     // 선택한 시간을 사용
                     binding.txtAmPm.text = ampm
                     binding.edtHour.text = viewHour.toString()
@@ -89,11 +95,17 @@ class MakeScheduleFragment : Fragment() {
     }
 
     // 스케줄 만드는 함수
-    private fun makeSchedule(todo: String, date: String, time: String, dday: String) {
+    private fun editSchedule(todo: String, date: String, time: String, dday: String, itemNum : Int) {
         FBRef.scheduleListRef.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val length = snapshot.childrenCount.toInt()
-                FBRef.scheduleListRef.child(length.toString()).setValue(Schedule(todo, date, time, dday))
+                FBRef.scheduleListRef.child(itemNum.toString()).setValue(
+                    Schedule(
+                        todo,
+                        date,
+                        time,
+                        dday
+                    )
+                )
             }
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
@@ -104,7 +116,6 @@ class MakeScheduleFragment : Fragment() {
     private fun isCalendarChange() {
         // 달력에서 날짜를 바꿀 때 마다 listener를 통한 date수정
         binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            // 달력 받아주고
             val calendar: Calendar = Calendar.getInstance()
             // 년, 월, 일 세팅
             calendar.set(year, month, dayOfMonth)
@@ -124,5 +135,37 @@ class MakeScheduleFragment : Fragment() {
                 "D-day"
             }
         }
+    }
+
+    private fun setAllText(itemNum : Int) {
+        FBRef.scheduleListRef.child(itemNum.toString()).addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                todo = snapshot.child("todo").value.toString()
+                binding.txtWriteTodo.setText(snapshot.child("todo").value.toString())
+                date = snapshot.child("date").value.toString()
+                hour = snapshot.child("time").value.toString().substring(0, 2).toInt()
+                binding.edtHour.text = hour.toString()
+                minu = snapshot.child("time").value.toString().substring(3, 5).toInt()
+                binding.edtMin.text = minu.toString()
+                ampm = snapshot.child("time").value.toString().substring(6, 8)
+                binding.txtAmPm.text = ampm
+                time = "${hour.toString().padStart(2, '0')}:${minu.toString().padStart(2, '0')} $ampm"
+                dday = snapshot.child("dday").value.toString() // 남은 날짜 변수
+
+                val year = date.substring(0, 2).toInt()
+                val month = date.substring(3, 5).toInt()
+                val day = date.substring(6, 8).toInt()
+
+                val calendar = Calendar.getInstance()
+                calendar.set(2000 + year, month - 1, day) // 변경하고자 하는 날짜 설정 (2023년 11월 30일)
+                val millis = calendar.timeInMillis // 밀리초 단위의 시간으로 변환
+
+                binding.calendarView.setDate(millis, false, true) // 해당 날짜로 CalendarView의 날짜 변경
+
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 }
