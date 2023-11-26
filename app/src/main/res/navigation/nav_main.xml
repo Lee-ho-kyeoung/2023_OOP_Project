@@ -65,7 +65,6 @@
     <fragment
         android:id="@+id/testTeamFragment"
         android:name="com.example.teamprojectsolocode.TestTeamFragment"
-        android:label="fragment_test_team"
         tools:layout="@layout/fragment_test_team" />
     <fragment
         android:id="@+id/editScheduleFragment"

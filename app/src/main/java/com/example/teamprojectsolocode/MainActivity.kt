@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration) // 액션바(상단 화면 제목) 설정
         binding.bottomNav.setupWithNavController(navController) // 하단바(화면 전환) 설정
 
-        checkNewUid()
+        checkNewUid() // 첫 로그인이면 데이터베이스 생성
 
         setContentView(binding.root) // 기초 세팅
     }
@@ -50,9 +50,7 @@ class MainActivity : AppCompatActivity() {
                     FBRef.uidRef.child("myTeamList").child("0").setValue("내 팀 목록")
                 }
             }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
+            override fun onCancelled(error: DatabaseError) {}
         })
     }
 }
