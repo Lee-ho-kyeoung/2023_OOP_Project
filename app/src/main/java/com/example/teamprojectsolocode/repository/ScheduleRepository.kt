@@ -34,4 +34,20 @@ class ScheduleRepository {
         }
         return arrayList
     }
+
+    fun removeSchedule(itemNum: Int) {
+        FBRef.scheduleListRef.addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                for (i in itemNum..< snapshot.childrenCount.toInt() - 1) {
+                    FBRef.scheduleListRef.child(i.toString()).setValue(snapshot.child((i+1).toString()).value)
+                }
+
+                FBRef.scheduleListRef.child((snapshot.childrenCount - 1).toString()).removeValue()
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
 }
