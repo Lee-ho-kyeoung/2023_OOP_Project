@@ -55,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
                     val user = auth.currentUser
                     moveMainPage(user)
                 } else {
-                    Toast.makeText(this, "회원가입되지 않은 계정입니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "등록되지 않은 계정입니다.", Toast.LENGTH_SHORT).show()
                 }
             }
     }

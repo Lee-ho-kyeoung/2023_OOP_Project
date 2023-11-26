@@ -27,18 +27,18 @@ class SearchTeamFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSearchTeamBinding.inflate(inflater)
-        var check = false
+        var check = false // 팀 목록에 존재하는지 여부 확인
 
         binding.btnSerch.setOnClickListener {
             serchedCode = binding.txtInputParticipateCode.text.toString()
             FBRef.teamListRef.addListenerForSingleValueEvent(object: ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    if(snapshot.child(serchedCode).exists()){
+                    if(snapshot.child(serchedCode).exists() && serchedCode != ""){ //빈칸이 아니고 데이터베이스상에 존재하면
                         binding.txtResultTeamName.text = snapshot.child(serchedCode)
                             .child("teamContent").child("name").value.toString()
                         check = true
                     }
-                    else{
+                    else{ //빈칸이거나 데이터베이스상에 존재하지 않으면
                         binding.txtResultTeamName.text = ""
                         check = false
                     }
@@ -71,7 +71,7 @@ class SearchTeamFragment : Fragment() {
     private fun addMyTeamList(teamName: String, teamNotice: String, pinNum: String) { //myTeamList에 team 추가하는 함수
         FBRef.myTeamListRef.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                for(i in 1..snapshot.childrenCount){
+                for(i in 1..snapshot.childrenCount){ // 이미 내 팀 목록에 존재하는지 확인
                     if(pinNum == snapshot.child(i.toString()).child("pin").value) {
                         Toast.makeText(context, "이미 가입된 팀입니다.", Toast.LENGTH_SHORT).show()
                         return
@@ -82,7 +82,7 @@ class SearchTeamFragment : Fragment() {
                 FBRef.teamListRef.child(serchedCode).child("members").child(FBRef.uid).setValue("member") // 팀 리스트에 역할 추가
                 findNavController().navigate(R.id.action_searchTeamFragment_to_groupsFragment)
             }
-            override fun onCancelled(error: DatabaseError) { TODO("Not yet implemented") }
+            override fun onCancelled(error: DatabaseError) {}
         })
     }
 }

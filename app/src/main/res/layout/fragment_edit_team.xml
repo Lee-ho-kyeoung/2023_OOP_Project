@@ -6,20 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".EditTeamFragment">
 
-    <android.widget.Button
-        android:id="@+id/btn_createTeam"
-        android:layout_width="268dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/butten_style"
-        android:text="팀 생성"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
@@ -113,5 +99,19 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <android.widget.Button
+        android:id="@+id/btn_createTeam"
+        android:layout_width="268dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/butten_style"
+        android:text="팀 생성"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

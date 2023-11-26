@@ -1,13 +1,9 @@
 package com.example.teamprojectsolocode.schedules
 
-import android.app.AlertDialog
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.teamprojectsolocode.databinding.ListScheduleBinding
-import com.example.teamprojectsolocode.repository.ScheduleRepository
 
 //Recycler View에 필요한 adapter 설정
 

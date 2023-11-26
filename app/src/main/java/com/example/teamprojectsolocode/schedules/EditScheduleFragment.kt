@@ -2,7 +2,6 @@ package com.example.teamprojectsolocode.schedules
 
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,10 +14,8 @@ import com.example.teamprojectsolocode.firebasedb.FBRef
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.getValue
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import kotlin.math.log
 
 private val dayOfWeekArray = arrayOf("일", "월", "화", "수", "목", "금", "토")
 class EditScheduleFragment : Fragment() {
