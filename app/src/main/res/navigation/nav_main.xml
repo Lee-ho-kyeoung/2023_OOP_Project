@@ -45,7 +45,11 @@
         android:id="@+id/searchTeamFragment"
         android:name="com.example.teamprojectsolocode.SearchTeamFragment"
         android:label="팀 검색"
-        tools:layout="@layout/fragment_search_team" />
+        tools:layout="@layout/fragment_search_team" >
+        <action
+            android:id="@+id/action_searchTeamFragment_to_groupsFragment"
+            app:destination="@id/groupsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/makeScheduleFragment"
         android:name="com.example.teamprojectsolocode.schedules.MakeScheduleFragment"

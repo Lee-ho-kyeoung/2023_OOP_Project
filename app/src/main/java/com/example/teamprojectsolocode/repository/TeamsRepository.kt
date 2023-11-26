@@ -13,22 +13,19 @@ class TeamsRepository {
             override fun onDataChange(snapshot: DataSnapshot) {
                 teamlist.postValue(makeTeamList(snapshot))
             }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
+            override fun onCancelled(error: DatabaseError) { TODO("Not yet implemented") }
         })
     }
 
     fun makeTeamList(snapshot: DataSnapshot): ArrayList<Teams> {
         val arrayList = arrayListOf<Teams>()
         for(num in 1 .. snapshot.childrenCount) {
-            if (snapshot.child(num.toString()).exists()) {
+            if(snapshot.child(num.toString()).exists()) {
                 arrayList.add(
                     Teams(
-                    snapshot.child(num.toString()).child("name").value.toString(),
-                    snapshot.child(num.toString()).child("notice").value.toString(),
-                    snapshot.child(num.toString()).child("pin").value.toString()
+                        snapshot.child(num.toString()).child("name").value.toString(),
+                        snapshot.child(num.toString()).child("notice").value.toString(),
+                        snapshot.child(num.toString()).child("pin").value.toString()
                     )
                 )
             }

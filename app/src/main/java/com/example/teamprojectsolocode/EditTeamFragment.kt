@@ -14,7 +14,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 
 class EditTeamFragment : Fragment() {
-
+    lateinit var key: String
     private lateinit var binding: FragmentEditTeamBinding //binding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,9 +35,7 @@ class EditTeamFragment : Fragment() {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if(!snapshot.child(pinNum).exists()) {
                         FBRef.teamListRef.child(pinNum).child("members").child(FBRef.uid).setValue("leader")
-                        FBRef.teamListRef.child(pinNum).child("name").setValue(teamName)
-                        FBRef.teamListRef.child(pinNum).child("notice").setValue(teamNotice)
-                        FBRef.teamListRef.child(pinNum).child("pin").setValue(pinNum)
+                        FBRef.teamListRef.child(pinNum).child("teamContent").setValue(Teams(teamName, teamNotice, pinNum))
 
                         addMyTeamList(teamName, teamNotice, pinNum)
                     }
@@ -47,8 +45,7 @@ class EditTeamFragment : Fragment() {
             findNavController().navigate(R.id.action_editTeamFragment_to_groupsFragment) // groupFragment로 이동
         }
 
-        // Inflate the layout for this fragment
-        return binding.root
+        return binding.root // Inflate the layout for this fragment
     }
 
     private fun addMyTeamList(teamName: String, teamNotice: String, pinNum: String) { //myTeamList에 team 추가하는 함수
@@ -60,5 +57,4 @@ class EditTeamFragment : Fragment() {
             override fun onCancelled(error: DatabaseError) { TODO("Not yet implemented") }
         })
     }
-
 }

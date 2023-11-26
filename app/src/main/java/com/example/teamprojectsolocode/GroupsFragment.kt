@@ -16,9 +16,7 @@ import com.example.teamprojectsolocode.viewmodel.TeamsViewModel
 class GroupsFragment : Fragment() {
 
     private val viewModel: TeamsViewModel by activityViewModels() // by는 위임의 뜻
-
     private var teamList = arrayListOf<Teams>()
-
     private lateinit var binding: FragmentGroupsBinding //binding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,7 +25,6 @@ class GroupsFragment : Fragment() {
         binding = FragmentGroupsBinding.inflate(inflater) //binding
 
         binding.recTeams.layoutManager = LinearLayoutManager(context) //recycler view 설정
-        binding.recTeams.adapter = TeamsAdapter(teamList)
         // Inflate the layout for this fragment
         return binding.root // binding이 최상위 view가 되기 때문에
     }
@@ -38,7 +35,11 @@ class GroupsFragment : Fragment() {
 
         viewModel.teamList.observe(viewLifecycleOwner) {
             teamList = viewModel.teamList.value?: arrayListOf() // teamList에 viewModel의 리스트를 넣어줌
-            binding.recTeams.adapter = TeamsAdapter(teamList) // adapter에 바뀐 scheduleList 다시 넣어주기
+            binding.recTeams.adapter = TeamsAdapter(teamList) {position, teams ->
+                val bundle = Bundle()
+                bundle.putInt("position", position)
+                findNavController().navigate(R.id.action_groupsFragment_to_testTeamFragment, bundle)
+            } // adapter에 바뀐 scheduleList 다시 넣어주기
         }
 
         binding.btnTeamSearch.setOnClickListener { // 팀 검색 버튼 누를 때 액션
