@@ -35,11 +35,14 @@
             android:layout_height="60dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/butten_style"
-            android:inputType="textMultiLine"
             android:textSize="12sp"
             android:hint="해야 할 일을 입력하세요"
+            android:singleLine="false"
             android:autofillHints=""
-            android:scrollHorizontally="false"/>
+            android:scrollHorizontally="false"
+            android:textIsSelectable="true"
+            android:maxLength="60"
+            android:maxLines="2"/>
 
         <TextView
             android:id="@+id/txt_date"

@@ -2,9 +2,15 @@ package com.example.teamprojectsolocode.schedules
 
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.text.Editable
+import android.text.InputFilter
+import android.text.TextWatcher
+import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -33,6 +39,7 @@ class MakeScheduleFragment : Fragment() {
     private var ampm = "" // 오전오후 변수
     private var time = "" // 시간 + 분 + 오전오후 변수
     private var dday = "D-day" // 남은 날짜 변수
+    val maxLines = 2 // 최대 두 줄
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +53,35 @@ class MakeScheduleFragment : Fragment() {
         binding = FragmentMakeScheduleBinding.inflate(inflater)
         // 요일을 선택할 때마다 호출되는 함수
         isCalendarChange()
+
+        // 글자 줄 수 제한
+        with(binding){
+            txtWriteTodo.addTextChangedListener(object : TextWatcher {
+                var maxText = ""
+                override fun beforeTextChanged(pos: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    maxText = pos.toString()
+                }
+                override fun onTextChanged(pos: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                    if(txtWriteTodo.lineCount > 2){
+                        Toast.makeText(context, "최대 2줄까지 입력 가능합니다", Toast.LENGTH_SHORT).show()
+
+                        txtWriteTodo.setText(maxText)
+                        txtWriteTodo.setSelection(txtWriteTodo.length())
+                    } else if(txtWriteTodo.length() > 60){
+                        Toast.makeText(context, "최대 60자까지 입력 가능합니다.",
+                            Toast.LENGTH_SHORT).show()
+
+                        txtWriteTodo.setText(maxText)
+                        txtWriteTodo.setSelection(txtWriteTodo.length())
+                    } else {
+                    }
+                }
+                override fun afterTextChanged(p0: Editable?) {
+
+                }
+            })
+        }
 
         // 만들기 버튼을 눌렀을 때
         binding.btnMake.setOnClickListener {
