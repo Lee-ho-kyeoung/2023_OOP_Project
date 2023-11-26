@@ -57,8 +57,6 @@ class SearchTeamFragment : Fragment() {
                         val pinNum = snapshot.child(serchedCode).child("teamContent").child("pin").value.toString()
 
                         addMyTeamList(teamName, teamNotice, pinNum) // 내 팀 목록에 추가
-
-                        FBRef.teamListRef.child(serchedCode).child("members").child(FBRef.uid).setValue("member") // 팀 리스트에 역할 추가
                     }
                     override fun onCancelled(error: DatabaseError) {}
                 })
@@ -81,6 +79,7 @@ class SearchTeamFragment : Fragment() {
                 }
                 val length = snapshot.childrenCount.toInt()
                 FBRef.myTeamListRef.child(length.toString()).setValue(Teams(teamName, teamNotice, pinNum))
+                FBRef.teamListRef.child(serchedCode).child("members").child(FBRef.uid).setValue("member") // 팀 리스트에 역할 추가
                 findNavController().navigate(R.id.action_searchTeamFragment_to_groupsFragment)
             }
             override fun onCancelled(error: DatabaseError) { TODO("Not yet implemented") }
