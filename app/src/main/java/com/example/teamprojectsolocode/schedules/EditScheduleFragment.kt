@@ -111,7 +111,7 @@ class EditScheduleFragment : Fragment() {
     }
 
     private fun isCalendarChange() {
-        // 달력에서 날짜를 바꿀 때 마다 listener를 통한 date수정
+        // 달력에서 날짜를 바꿀 때 마다 listener를 통한 date 및 dday수정
         binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             val calendar: Calendar = Calendar.getInstance()
             // 년, 월, 일 세팅
@@ -154,7 +154,7 @@ class EditScheduleFragment : Fragment() {
                 val day = date.substring(6, 8).toInt()
 
                 val calendar = Calendar.getInstance()
-                calendar.set(2000 + year, month - 1, day) // 변경하고자 하는 날짜 설정 (2023년 11월 30일)
+                calendar.set(2000 + year, month - 1, day)
                 val millis = calendar.timeInMillis // 밀리초 단위의 시간으로 변환
 
                 binding.calendarView.setDate(millis, false, true) // 해당 날짜로 CalendarView의 날짜 변경

@@ -31,6 +31,9 @@ class ScheduleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentScheduleBinding.inflate(inflater) // binding
+
+        ScheduleRepository().setDday()
+
         // Recycler View에 필요한 layoutManager와 adapter 만들기
         binding.recSchedules.layoutManager = LinearLayoutManager(context)
         binding.recSchedules.adapter = SchedulesAdapter(scheduleList, this)
