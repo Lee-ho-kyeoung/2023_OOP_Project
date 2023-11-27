@@ -3,7 +3,7 @@ package com.example.teamprojectsolocode.team
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.teamprojectsolocode.R
+import com.bumptech.glide.Glide
 import com.example.teamprojectsolocode.databinding.ListTeamsBinding
 
 //UI 랜더링할 때 필요한 것들을 넘겨주는 역할
@@ -30,7 +30,9 @@ class TeamsAdapter(val teams: ArrayList<Teams>, val clickListener: (position: In
 
     class Holder(private val binding: ListTeamsBinding): RecyclerView.ViewHolder(binding.root) { //item layout을 넘겨줌
         fun bind(team: Teams) {
-            binding.imageView.setImageResource(R.drawable.testteamimage)
+            Glide.with(binding.root.context)
+                .load(team.uri) // 이미지 URL
+                .into(binding.imageView) // ImageView에 이미지 설정
             binding.txtTeamName.text = team.name
             binding.txtTeamExplain.text = team.notice
         }

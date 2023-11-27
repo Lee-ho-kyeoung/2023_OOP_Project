@@ -4,31 +4,18 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemClickListener
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.teamprojectsolocode.R
 import com.example.teamprojectsolocode.RecyclerViewDecoration
 import com.example.teamprojectsolocode.databinding.FragmentScheduleBinding
-import com.example.teamprojectsolocode.firebasedb.FBRef
 import com.example.teamprojectsolocode.repository.ScheduleRepository
 import com.example.teamprojectsolocode.viewmodel.ScheduleViewModel
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
 
-/**
- * A simple [Fragment] subclass.
- * Use the [GroupsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ScheduleFragment : Fragment() {
 
     // viewModel 가져오고 초기화

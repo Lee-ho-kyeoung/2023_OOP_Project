@@ -14,6 +14,16 @@ import com.google.firebase.database.ValueEventListener
 class TestTeamFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val receivedBundle = arguments
+        val position = receivedBundle?.getInt("position")
+
+        FBRef.myTeamListRef.addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                (activity as MainActivity).supportActionBar?.title = snapshot.child(position.toString()).child("name").value.toString()
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        })
+
     }
 
     override fun onCreateView(

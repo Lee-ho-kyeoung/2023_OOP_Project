@@ -13,7 +13,7 @@ class TeamsRepository {
             override fun onDataChange(snapshot: DataSnapshot) {
                 teamlist.postValue(makeTeamList(snapshot))
             }
-            override fun onCancelled(error: DatabaseError) { TODO("Not yet implemented") }
+            override fun onCancelled(error: DatabaseError) {}
         })
     }
 
@@ -25,7 +25,8 @@ class TeamsRepository {
                     Teams(
                         snapshot.child(num.toString()).child("name").value.toString(),
                         snapshot.child(num.toString()).child("notice").value.toString(),
-                        snapshot.child(num.toString()).child("pin").value.toString()
+                        snapshot.child(num.toString()).child("pin").value.toString(),
+                        snapshot.child(num.toString()).child("uri").value.toString()
                     )
                 )
             }

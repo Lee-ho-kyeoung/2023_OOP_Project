@@ -35,8 +35,8 @@
 
         <android.widget.Button
             android:id="@+id/btn_teamSearch"
-            android:layout_width="268dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@drawable/butten_style"
             android:text="팀 검색"
             android:textSize="24sp"
@@ -44,8 +44,8 @@
 
         <android.widget.Button
             android:id="@+id/btn_teamEdit"
-            android:layout_width="268dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="4dp"
             android:background="@drawable/butten_style"

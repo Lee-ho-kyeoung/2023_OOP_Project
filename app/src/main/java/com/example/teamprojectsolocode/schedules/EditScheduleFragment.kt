@@ -2,8 +2,6 @@ package com.example.teamprojectsolocode.schedules
 
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,35 +47,6 @@ class EditScheduleFragment : Fragment() {
 
         // 요일을 선택할 때마다 호출되는 함수
         isCalendarChange()
-
-        // 글자 줄 수 제한
-        with(binding){
-            txtWriteTodo.addTextChangedListener(object : TextWatcher {
-                var maxText = ""
-                override fun beforeTextChanged(pos: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    maxText = pos.toString()
-                }
-                override fun onTextChanged(pos: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                    if(txtWriteTodo.lineCount > 2){
-                        Toast.makeText(context, "최대 2줄까지 입력 가능합니다", Toast.LENGTH_SHORT).show()
-
-                        txtWriteTodo.setText(maxText)
-                        txtWriteTodo.setSelection(txtWriteTodo.length())
-                    } else if(txtWriteTodo.length() > 60){
-                        Toast.makeText(context, "최대 60자까지 입력 가능합니다.",
-                            Toast.LENGTH_SHORT).show()
-
-                        txtWriteTodo.setText(maxText)
-                        txtWriteTodo.setSelection(txtWriteTodo.length())
-                    } else {
-                    }
-                }
-                override fun afterTextChanged(p0: Editable?) {
-
-                }
-            })
-        }
 
         // 만들기 버튼을 눌렀을 때
         binding.btnMake.setOnClickListener {
