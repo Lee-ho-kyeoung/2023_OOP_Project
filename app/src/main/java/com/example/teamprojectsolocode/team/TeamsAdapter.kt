@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.teamprojectsolocode.R
 import com.example.teamprojectsolocode.databinding.ListTeamsBinding
 
 //UI 랜더링할 때 필요한 것들을 넘겨주는 역할
