@@ -52,10 +52,13 @@ class EditTeamFragment : Fragment() {
             val teamName = binding.txtInputTeamName.text.toString()
             val pinNum = binding.txtInputTeamCode.text.toString()
             val teamNotice = binding.txtInputTeamNotice.text.toString()
-            val imageUri = binding.selectedImg.tag as? Uri // 이미지 Uri 가져오기
+            var imageUri = binding.selectedImg.tag as? Uri // 이미지 Uri 가져오기
+            if (imageUri == null) {
+                imageUri = Uri.parse("android.resource://com.example.teamprojectsolocode/drawable/default_img") // 기본 이미지가 있는 리소스의 Uri를 사용하거나, 다른 기본값으로 설정
+            }
 
-            if (teamName.isNotBlank() && teamNotice.isNotBlank() && pinNum.isNotBlank() && imageUri != null) { // 모든 입력란이 비어있지 않고 이미지가 선택되었을 때
-                val uploadTask = FBRef.storageRef.putFile(imageUri) // 이미지 업로드
+            if (teamName.isNotBlank() && teamNotice.isNotBlank() && pinNum.isNotBlank()) { // 모든 입력란이 비어있지 않고 이미지가 선택되었을 때
+                val uploadTask = FBRef.storageRef.putFile(imageUri!!) // 이미지 업로드
 
                 uploadTask.addOnSuccessListener { taskSnapshot ->
                     // 이미지 업로드 성공 시 URL 획득
