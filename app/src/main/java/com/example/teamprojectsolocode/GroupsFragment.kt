@@ -25,6 +25,8 @@ class GroupsFragment : Fragment() {
         binding = FragmentGroupsBinding.inflate(inflater) //binding
 
         binding.recTeams.layoutManager = LinearLayoutManager(context) //recycler view 설정
+
+        binding.recTeams.addItemDecoration(RecyclerViewDecoration(30))
         // Inflate the layout for this fragment
         return binding.root // binding이 최상위 view가 되기 때문에
     }
