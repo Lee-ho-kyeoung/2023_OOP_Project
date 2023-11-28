@@ -21,6 +21,20 @@
             android:layout_marginEnd="30dp"
             android:background="@drawable/textbox_style"
             android:hint="참가할 팀 코드를 입력해주세요."
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/txt_InputNickName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/textbox_style"
+            android:hint="팀에서 사용할 닉네임을 입력해주세요."
+            android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="20sp" />
 

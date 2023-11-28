@@ -48,7 +48,9 @@ class SearchTeamFragment : Fragment() {
         }
 
         binding.btnParticipateTeam.setOnClickListener {
-            if(check){
+            val nickName = binding.txtInputNickName.text.toString()
+
+            if(check && nickName.isNotBlank()){
                 FBRef.teamListRef.addListenerForSingleValueEvent(object: ValueEventListener{
                     override fun onDataChange(snapshot: DataSnapshot) {
                         serchedCode = binding.txtInputParticipateCode.text.toString()
@@ -57,19 +59,19 @@ class SearchTeamFragment : Fragment() {
                         val pinNum = snapshot.child(serchedCode).child("teamContent").child("pin").value.toString()
                         val uri = snapshot.child(serchedCode).child("teamContent").child("uri").value.toString()
 
-                        addMyTeamList(teamName, teamNotice, pinNum, uri) // 내 팀 목록에 추가
+                        addMyTeamList(teamName, teamNotice, pinNum, uri, nickName) // 내 팀 목록에 추가
                     }
                     override fun onCancelled(error: DatabaseError) {}
                 })
             }
             else {
-                Toast.makeText(context, "존재하지 않는 팀입니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "존재하지 않는 팀이거나 모든 정보가 입력되지 않았습니다.", Toast.LENGTH_SHORT).show()
             }
         }
 
         return binding.root // Inflate the layout for this fragment
     }
-    private fun addMyTeamList(teamName: String, teamNotice: String, pinNum: String, uri: String) { //myTeamList에 team 추가하는 함수
+    private fun addMyTeamList(teamName: String, teamNotice: String, pinNum: String, uri: String, nickName: String) { //myTeamList에 team 추가하는 함수
         FBRef.myTeamListRef.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(i in 1..snapshot.childrenCount){ // 이미 내 팀 목록에 존재하는지 확인
@@ -80,7 +82,8 @@ class SearchTeamFragment : Fragment() {
                 }
                 val length = snapshot.childrenCount.toInt()
                 FBRef.myTeamListRef.child(length.toString()).setValue(Teams(teamName, teamNotice, pinNum, uri))
-                FBRef.teamListRef.child(serchedCode).child("members").child(FBRef.uid).setValue("member") // 팀 리스트에 역할 추가
+                FBRef.myTeamListRef.child(length.toString()).child("userName").setValue(nickName)
+                FBRef.teamListRef.child(serchedCode).child("members").child(nickName).setValue("member") // 팀 리스트에 역할 추가
                 findNavController().navigate(R.id.action_searchTeamFragment_to_groupsFragment)
             }
             override fun onCancelled(error: DatabaseError) {}

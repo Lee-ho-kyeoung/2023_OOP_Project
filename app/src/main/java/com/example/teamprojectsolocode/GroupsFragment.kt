@@ -40,7 +40,7 @@ class GroupsFragment : Fragment() {
             binding.recTeams.adapter = TeamsAdapter(teamList) {position, teams ->
                 val bundle = Bundle()
                 bundle.putInt("position", position)
-                findNavController().navigate(R.id.action_groupsFragment_to_testTeamFragment, bundle)
+                findNavController().navigate(R.id.action_groupsFragment_to_groupInfoFragment, bundle)
             } // adapter에 바뀐 scheduleList 다시 넣어주기
         }
 

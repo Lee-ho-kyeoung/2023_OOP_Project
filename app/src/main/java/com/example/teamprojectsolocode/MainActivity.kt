@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         FBRef.uidRef.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(!snapshot.exists()) {
-                    FBRef.uidRef.child("scheduleList").child("0").setValue(Schedule("todo", "date", "time", "dday"))
+                    FBRef.uidRef.child("scheduleList").child("0").setValue("내 일정 목록")
                     FBRef.uidRef.child("myTeamList").child("0").setValue("내 팀 목록")
                 }
             }

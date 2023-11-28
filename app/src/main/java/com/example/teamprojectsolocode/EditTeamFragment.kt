@@ -52,15 +52,17 @@ class EditTeamFragment : Fragment() {
             val teamName = binding.txtInputTeamName.text.toString()
             val pinNum = binding.txtInputTeamCode.text.toString()
             val teamNotice = binding.txtInputTeamNotice.text.toString()
+            val nickname = binding.txtNickName.text.toString()
             var imageUri = binding.selectedImg.tag as? Uri // 이미지 Uri 가져오기
+
             if (imageUri == null) {
                 imageUri = Uri.parse("android.resource://com.example.teamprojectsolocode/drawable/default_img") // 기본 이미지가 있는 리소스의 Uri를 사용하거나, 다른 기본값으로 설정
             }
 
-            if (teamName.isNotBlank() && teamNotice.isNotBlank() && pinNum.isNotBlank()) { // 모든 입력란이 비어있지 않고 이미지가 선택되었을 때
-                val uploadTask = FBRef.storageRef.putFile(imageUri!!) // 이미지 업로드
+            if (teamName.isNotBlank() && teamNotice.isNotBlank() && pinNum.isNotBlank() && nickname.isNotBlank()) { // 모든 입력란이 비어있지 않고 이미지가 선택되었을 때
+                val uploadTask = imageUri?.let { FBRef.storageRef.putFile(it) } // 이미지 업로드
 
-                uploadTask.addOnSuccessListener { taskSnapshot ->
+                uploadTask?.addOnSuccessListener { taskSnapshot ->
                     // 이미지 업로드 성공 시 URL 획득
                     FBRef.storageRef.downloadUrl.addOnSuccessListener { uri ->
                         val downloadUrl = uri.toString()
@@ -68,10 +70,10 @@ class EditTeamFragment : Fragment() {
                         FBRef.teamListRef.addListenerForSingleValueEvent(object : ValueEventListener { // 팀 생성 로직 추가
                             override fun onDataChange(snapshot: DataSnapshot) {
                                 if (!snapshot.child(pinNum).exists()) { // 팀 목록에 팀이 존재하지 않으면
-                                    FBRef.teamListRef.child(pinNum).child("members").child(FBRef.uid).setValue("leader")
+                                    FBRef.teamListRef.child(pinNum).child("members").child(nickname).setValue("leader")
                                     FBRef.teamListRef.child(pinNum).child("teamContent").setValue(Teams(teamName, teamNotice, pinNum, downloadUrl))
 
-                                    addMyTeamList(teamName, teamNotice, pinNum, downloadUrl)
+                                    addMyTeamList(teamName, teamNotice, pinNum, downloadUrl, nickname)
 
                                     findNavController().navigate(R.id.action_editTeamFragment_to_groupsFragment) // groupFragment로 이동
                                 } else {
@@ -83,7 +85,7 @@ class EditTeamFragment : Fragment() {
                     }.addOnFailureListener {
                         Toast.makeText(context, "이미지 업로드 실패", Toast.LENGTH_SHORT).show() // URL을 가져오지 못한 경우의 처리
                     }
-                }.addOnFailureListener {
+                }?.addOnFailureListener {
                     Toast.makeText(context, "이미지 업로드 실패", Toast.LENGTH_SHORT).show() // 이미지 업로드 실패 시 처리
                 }
             } else {
@@ -94,11 +96,12 @@ class EditTeamFragment : Fragment() {
         return binding.root
     }
 
-    private fun addMyTeamList(teamName: String, teamNotice: String, pinNum: String, uri: String) { //myTeamList에 team 추가하는 함수
+    private fun addMyTeamList(teamName: String, teamNotice: String, pinNum: String, uri: String, nickName: String) { //myTeamList에 team 추가하는 함수
         FBRef.myTeamListRef.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val length = snapshot.childrenCount.toInt()
                 FBRef.myTeamListRef.child(length.toString()).setValue(Teams(teamName, teamNotice, pinNum, uri))
+                FBRef.myTeamListRef.child(length.toString()).child("userName").setValue(nickName)
             }
             override fun onCancelled(error: DatabaseError) {}
         })
