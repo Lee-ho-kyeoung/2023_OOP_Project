@@ -58,6 +58,7 @@ class SearchTeamFragment : Fragment() {
                         val teamNotice = snapshot.child(serchedCode).child("teamContent").child("notice").value.toString()
                         val pinNum = snapshot.child(serchedCode).child("teamContent").child("pin").value.toString()
                         val uri = snapshot.child(serchedCode).child("teamContent").child("uri").value.toString()
+                        val num = snapshot.child(serchedCode).child("members").childrenCount.toInt()
 
                         addMyTeamList(teamName, teamNotice, pinNum, uri, nickName) // 내 팀 목록에 추가
                     }
@@ -71,6 +72,7 @@ class SearchTeamFragment : Fragment() {
 
         return binding.root // Inflate the layout for this fragment
     }
+
     private fun addMyTeamList(teamName: String, teamNotice: String, pinNum: String, uri: String, nickName: String) { //myTeamList에 team 추가하는 함수
         FBRef.myTeamListRef.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -82,8 +84,19 @@ class SearchTeamFragment : Fragment() {
                 }
                 val length = snapshot.childrenCount.toInt()
                 FBRef.myTeamListRef.child(length.toString()).setValue(Teams(teamName, teamNotice, pinNum, uri))
-                FBRef.myTeamListRef.child(length.toString()).child("userName").setValue(nickName)
-                FBRef.teamListRef.child(serchedCode).child("members").child(nickName).setValue("member") // 팀 리스트에 역할 추가
+                FBRef.myTeamListRef.child(length.toString()).child("nickName").setValue(nickName)
+
+                FBRef.teamListRef.addListenerForSingleValueEvent(object: ValueEventListener {
+                    override fun onDataChange(TLsnapshot: DataSnapshot) {
+                        val num = TLsnapshot.child(serchedCode).child("members").childrenCount.toInt()
+                        FBRef.teamListRef.child(serchedCode).child("members").child(num.toString())
+                            .child("roll").setValue("member") // 팀 리스트에 역할 추가
+                        FBRef.teamListRef.child(serchedCode).child("members").child(num.toString())
+                            .child("nickName").setValue(nickName) // 팀 리스트에 닉네임 추가
+                    }
+                    override fun onCancelled(error: DatabaseError) {}
+                })
+
                 findNavController().navigate(R.id.action_searchTeamFragment_to_groupsFragment)
             }
             override fun onCancelled(error: DatabaseError) {}

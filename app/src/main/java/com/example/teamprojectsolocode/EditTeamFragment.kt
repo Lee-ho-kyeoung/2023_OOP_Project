@@ -70,7 +70,8 @@ class EditTeamFragment : Fragment() {
                         FBRef.teamListRef.addListenerForSingleValueEvent(object : ValueEventListener { // 팀 생성 로직 추가
                             override fun onDataChange(snapshot: DataSnapshot) {
                                 if (!snapshot.child(pinNum).exists()) { // 팀 목록에 팀이 존재하지 않으면
-                                    FBRef.teamListRef.child(pinNum).child("members").child(nickname).setValue("leader")
+                                    FBRef.teamListRef.child(pinNum).child("members").child("0").child("roll").setValue("leader")
+                                    FBRef.teamListRef.child(pinNum).child("members").child("0").child("nickName").setValue(nickname)
                                     FBRef.teamListRef.child(pinNum).child("teamContent").setValue(Teams(teamName, teamNotice, pinNum, downloadUrl))
 
                                     addMyTeamList(teamName, teamNotice, pinNum, downloadUrl, nickname)
@@ -101,7 +102,7 @@ class EditTeamFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val length = snapshot.childrenCount.toInt()
                 FBRef.myTeamListRef.child(length.toString()).setValue(Teams(teamName, teamNotice, pinNum, uri))
-                FBRef.myTeamListRef.child(length.toString()).child("userName").setValue(nickName)
+                FBRef.myTeamListRef.child(length.toString()).child("nickName").setValue(nickName)
             }
             override fun onCancelled(error: DatabaseError) {}
         })
