@@ -3,8 +3,10 @@ package com.example.teamprojectsolocode.repository
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
+import com.example.teamprojectsolocode.databinding.FragmentEditScheduleBinding
 import com.example.teamprojectsolocode.firebasedb.FBRef
 import com.example.teamprojectsolocode.schedules.Schedule
+import com.example.teamprojectsolocode.schedules.ScheduleInfo
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -89,5 +91,65 @@ class ScheduleRepository {
         })
     }
 
-    //fun sortSchedule()
+    fun makeSchedule(scheduleInfo: ScheduleInfo) {
+        FBRef.scheduleListRef.addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val length = snapshot.childrenCount.toInt()
+                FBRef.scheduleListRef.child(length.toString()).setValue(Schedule(scheduleInfo.todo, scheduleInfo.date, scheduleInfo.time, scheduleInfo.dday))
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
+    fun editSchedule(scheduleInfo: ScheduleInfo, itemNum : Int) {
+        FBRef.scheduleListRef.addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                FBRef.scheduleListRef.child(itemNum.toString()).setValue(
+                    Schedule(
+                        scheduleInfo.todo,
+                        scheduleInfo.date,
+                        scheduleInfo.time,
+                        scheduleInfo.dday
+                    )
+                )
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
+    fun setAllText(itemNum: Int, scheduleInfo: ScheduleInfo, binding: FragmentEditScheduleBinding) {
+        FBRef.scheduleListRef.child(itemNum.toString()).addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                scheduleInfo.todo = snapshot.child("todo").value.toString()
+                binding.txtWriteTodo.setText(snapshot.child("todo").value.toString())
+                scheduleInfo.date = snapshot.child("date").value.toString()
+                scheduleInfo.hour = snapshot.child("time").value.toString().substring(0, 2).toInt()
+                binding.edtHour.text = scheduleInfo.hour.toString()
+                scheduleInfo.minu = snapshot.child("time").value.toString().substring(3, 5).toInt()
+                binding.edtMin.text = scheduleInfo.minu.toString()
+                scheduleInfo.ampm = snapshot.child("time").value.toString().substring(6, 8)
+                binding.txtAmPm.text = scheduleInfo.ampm
+                scheduleInfo.time = "${scheduleInfo.hour.toString().padStart(2, '0')}:${scheduleInfo.minu.toString().padStart(2, '0')} ${scheduleInfo.ampm}"
+                scheduleInfo.dday = snapshot.child("dday").value.toString() // 남은 날짜 변수
+
+                val year = scheduleInfo.date.substring(0, 2).toInt()
+                val month = scheduleInfo.date.substring(3, 5).toInt()
+                val day = scheduleInfo.date.substring(6, 8).toInt()
+
+                val calendar = Calendar.getInstance()
+                calendar.set(2000 + year, month - 1, day)
+                val millis = calendar.timeInMillis // 밀리초 단위의 시간으로 변환
+
+                binding.calendarView.setDate(millis, false, true) // 해당 날짜로 CalendarView의 날짜 변경
+
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
 }

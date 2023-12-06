@@ -27,6 +27,8 @@ class SchedulesAdapter(
     override fun onBindViewHolder(holder: Holder, position: Int) {
         // 포지션을 인자로 받으니, 몇 번째 일정을 랜더링 할 껀지 정해줌(순서대로)
         holder.bind(schedules[position])
+
+        // D-day에 따른 색상 설정
         setScheduleColor(holder, position)
 
         // 클릭시
@@ -43,7 +45,6 @@ class SchedulesAdapter(
         val dateInfo = schedules[position].dDay.split("+", "-").toMutableList()
         if (dateInfo[0] == "D") dateInfo[0] = "0"
         val oper = if (schedules[position].dDay.contains("+")) "+" else "-"
-        Log.d(oper, "oper")
         if (oper == "+")
             holder.itemView.setBackgroundResource(R.drawable.schedule_style_0)
         else {

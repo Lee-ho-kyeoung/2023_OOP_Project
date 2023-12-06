@@ -18,10 +18,11 @@ import com.example.teamprojectsolocode.viewmodel.ScheduleViewModel
 
 class ScheduleFragment : Fragment() {
 
+    //Recycler View용 할 일 배열 (나중에 값을 ViewModel에서 가져옴)
+    private var viewScheduleList = arrayListOf<Schedule>()
+
     // viewModel 가져오고 초기화
     private val viewModel: ScheduleViewModel by activityViewModels()
-    //Recycler View용 할 일 배열 (나중에 값을 ViewModel에서 가져옴)
-    private var scheduleList = arrayListOf<Schedule>()
 
     // 바인딩 만들어주기
     private lateinit var binding: FragmentScheduleBinding // binding
@@ -30,34 +31,33 @@ class ScheduleFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentScheduleBinding.inflate(inflater) // binding
+        // 바인딩
+        binding = FragmentScheduleBinding.inflate(inflater)
 
-        ScheduleRepository().setDday()
-
-        // Recycler View에 필요한 layoutManager와 adapter 만들기
+        // Recycler View에 필요한 layoutManager 만들기 (현재 context 넣어줌)
         binding.recSchedules.layoutManager = LinearLayoutManager(context)
-        binding.recSchedules.adapter = SchedulesAdapter(scheduleList, this)
 
         // 각각의 스케줄에 마진 넣기
         binding.recSchedules.addItemDecoration(RecyclerViewDecoration(30))
-        // Inflate the layout for this fragment
+
         return binding.root // binding이 최상위 view가 되기 때문에
     }
 
-    // view가 다 binding이 되어서 create 되고난 이후 네비게이션 및 모든 설정 이후
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // viewModel의 scheduleList가 바뀌거나 scheduleList를 최초로 읽는다면
         viewModel.scheduleList.observe(viewLifecycleOwner) {
-            //scheduleList에 viewModel의 리스트를 넣어줌
-            scheduleList = viewModel.scheduleList.value?: arrayListOf()
-            // adapter에 바뀐 scheduleList 다시 넣어주기
-            binding.recSchedules.adapter = SchedulesAdapter(scheduleList, this)
+            // viewScheduleList에 viewModel의 리스트를 넣어줌 (Null일 시 빈 리스트 넣어주기)
+            viewScheduleList = viewModel.scheduleList.value?: arrayListOf()
+            // adapter에 최신화된 scheduleList와 현 프레그먼트 넣어주기
+            binding.recSchedules.adapter = SchedulesAdapter(viewScheduleList, this)
+
+            viewModel.setDday() // D-day를 현재 날짜에 맞게 수정해줌
         }
 
         binding?.btnMakeSchedule?.setOnClickListener { // 팀 추가 버튼 누를 때 액션
-            findNavController().navigate(R.id.action_scheduleFragment_to_makeScheduleFragment) //Resource.id.navigation action
+            findNavController().navigate(R.id.action_scheduleFragment_to_makeScheduleFragment)
         }
     }
 
@@ -74,14 +74,14 @@ class ScheduleFragment : Fragment() {
                 when(which) {
                     // 0 : 완료, 1 : 수정, 2 : 삭제
                     // 해당 번호의 리스트 완료
-                    0 -> {
-                        ScheduleRepository().removeSchedule(itemNum)
+                    0 -> { // 완료 버튼을 누르면
+                        viewModel.removeSchedule(itemNum) // 해당 번호의 스케줄을 삭제
                         Toast.makeText(this.context, "해당 일정을 완료했습니다.", Toast.LENGTH_SHORT).show()
                     }
                     // 번들과 함께 할일 수정 화면으로 전환
                     1 -> findNavController().navigate(R.id.action_scheduleFragment_to_editScheduleFragment, bundle)
                     // 해당 번호의 리스트 삭제
-                    2 -> ScheduleRepository().removeSchedule(itemNum)
+                    2 -> viewModel.removeSchedule(itemNum) // 해당 번호의 스케줄을 삭제
                 }
             }
             .setCancelable(true)

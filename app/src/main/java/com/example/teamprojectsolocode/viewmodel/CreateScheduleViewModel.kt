@@ -3,11 +3,13 @@ package com.example.teamprojectsolocode.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.teamprojectsolocode.databinding.FragmentEditScheduleBinding
 import com.example.teamprojectsolocode.schedules.Schedule
 import com.example.teamprojectsolocode.repository.ScheduleRepository
+import com.example.teamprojectsolocode.schedules.ScheduleInfo
 
 // ViewModel은 데이터를 자료구조 형식으로 기본적으로 가지고있음
-class ScheduleViewModel: ViewModel() {
+class CreateScheduleViewModel: ViewModel() {
 
     // 리포지토리 가져오기
     private val repository = ScheduleRepository()
@@ -25,12 +27,16 @@ class ScheduleViewModel: ViewModel() {
     // 밖에서 볼 때는 바꿀 수 없는 형태로 (Mutable 아님)
     val scheduleList : LiveData<ArrayList<Schedule>> get() = _scheduleList
 
-    fun setDday() {
-        repository.setDday()
+    //
+    fun setAllText(itemNum: Int, scheduleInfo: ScheduleInfo, binding: FragmentEditScheduleBinding) {
+        repository.setAllText(itemNum, scheduleInfo, binding)
     }
 
-    fun removeSchedule(itemNum: Int) {
-        repository.removeSchedule(itemNum)
+    fun makeSchedule(scheduleInfo: ScheduleInfo) {
+        repository.makeSchedule(scheduleInfo)
+    }
+    fun editSchedule(scheduleInfo: ScheduleInfo, itemNum : Int) {
+        repository.editSchedule(scheduleInfo, itemNum)
     }
 
 }
