@@ -25,10 +25,12 @@ class ScheduleViewModel: ViewModel() {
     // 밖에서 볼 때는 바꿀 수 없는 형태로 (Mutable 아님)
     val scheduleList : LiveData<ArrayList<Schedule>> get() = _scheduleList
 
+    // 오늘 날짜와 스케줄 날짜를 비교해 d-day를 변경해주는 함수
     fun setDday() {
         repository.setDday()
     }
-
+    
+    // 스케줄 삭제하는 함수
     fun removeSchedule(itemNum: Int) {
         repository.removeSchedule(itemNum)
     }

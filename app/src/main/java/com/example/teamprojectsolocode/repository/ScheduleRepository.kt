@@ -22,6 +22,7 @@ class ScheduleRepository {
         FBRef.scheduleListRef.addValueEventListener(object: ValueEventListener{
             // 데이터가 바뀌거나 처음 불릴 때 업데이트
             override fun onDataChange(snapshot: DataSnapshot) {
+                //
                 scheduleList.postValue(makeScheduleList(snapshot))
             }
             override fun onCancelled(error: DatabaseError) {
@@ -30,6 +31,7 @@ class ScheduleRepository {
         })
     }
 
+    // 위 함수에서 이용하는 함수. 데이터베이스에서 읽은 값을 스케줄 리스트에 넣어줌
     fun makeScheduleList(snapshot: DataSnapshot): ArrayList<Schedule> {
         val arrayList = arrayListOf<Schedule>()
         for(num in 1 .. snapshot.childrenCount) {
@@ -45,6 +47,7 @@ class ScheduleRepository {
         return arrayList
     }
 
+    // 해당 스케줄을 지워주는 함수
     fun removeSchedule(itemNum: Int) {
         FBRef.scheduleListRef.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -91,6 +94,7 @@ class ScheduleRepository {
         })
     }
 
+    // 스케줄 만드는 함수
     fun makeSchedule(scheduleInfo: ScheduleInfo) {
         FBRef.scheduleListRef.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -103,6 +107,7 @@ class ScheduleRepository {
         })
     }
 
+    // 스케줄 수정하는 함수
     fun editSchedule(scheduleInfo: ScheduleInfo, itemNum : Int) {
         FBRef.scheduleListRef.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -121,6 +126,7 @@ class ScheduleRepository {
         })
     }
 
+    // 바인딩을 받아서 각 자리에 맞게 정보들을 기입하는 함수
     fun setAllText(itemNum: Int, scheduleInfo: ScheduleInfo, binding: FragmentEditScheduleBinding) {
         FBRef.scheduleListRef.child(itemNum.toString()).addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {

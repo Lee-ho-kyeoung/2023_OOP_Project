@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.teamprojectsolocode.R
 import com.example.teamprojectsolocode.RecyclerViewDecoration
 import com.example.teamprojectsolocode.databinding.FragmentScheduleBinding
-import com.example.teamprojectsolocode.repository.ScheduleRepository
 import com.example.teamprojectsolocode.viewmodel.ScheduleViewModel
 
 class ScheduleFragment : Fragment() {
@@ -49,7 +48,7 @@ class ScheduleFragment : Fragment() {
         // viewModel의 scheduleList가 바뀌거나 scheduleList를 최초로 읽는다면
         viewModel.scheduleList.observe(viewLifecycleOwner) {
             // viewScheduleList에 viewModel의 리스트를 넣어줌 (Null일 시 빈 리스트 넣어주기)
-            viewScheduleList = viewModel.scheduleList.value?: arrayListOf()
+            viewScheduleList = viewModel.scheduleList.value ?: arrayListOf()
             // adapter에 최신화된 scheduleList와 현 프레그먼트 넣어주기
             binding.recSchedules.adapter = SchedulesAdapter(viewScheduleList, this)
 
@@ -84,8 +83,8 @@ class ScheduleFragment : Fragment() {
                     2 -> viewModel.removeSchedule(itemNum) // 해당 번호의 스케줄을 삭제
                 }
             }
-            .setCancelable(true)
-            .show()
+            .setCancelable(true) // 밖에 누르면 취소 가능
+            .show() // 띄워주기
     }
 
     override fun onDestroyView() {
