@@ -14,7 +14,7 @@ class ScheduleViewModel: ViewModel() {
     // 내부적으로는 바꿀 수 있는 데이터 형식을 사용 (Mutable)
     private val _scheduleList = MutableLiveData(testList)
 
-    // 리포지토리 가져오기
+    // 리포지토리 가져오기,,lphj,
     private val repository = ScheduleRepository()
     init {
         repository.observeScheduleList(_scheduleList)

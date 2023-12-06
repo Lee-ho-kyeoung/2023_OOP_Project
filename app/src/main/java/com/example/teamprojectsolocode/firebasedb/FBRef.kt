@@ -18,5 +18,10 @@ class FBRef {
 
         val myTeamListRef = database.getReference("user/${uid}/myTeamList")
         val scheduleListRef = database.getReference("user/$uid/scheduleList")
+
+        val noticeListRef = database.getReference("teamList/123/notice")
+        val memberListRef = database.getReference("teamList/123/members")
+
+
     }
 }

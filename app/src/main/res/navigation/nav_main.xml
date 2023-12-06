@@ -72,7 +72,7 @@
     </fragment>
     <fragment
         android:id="@+id/groupInfoFragment"
-        android:name="com.example.teamprojectsolocode.GroupInfoFragment"
+        android:name="com.example.teamprojectsolocode.groupInfo.GroupInfoFragment"
         tools:layout="@layout/fragment_group_info" >
         <action
             android:id="@+id/action_groupInfoFragment_to_noticeFragment"
@@ -80,7 +80,7 @@
     </fragment>
     <fragment
         android:id="@+id/noticeFragment"
-        android:name="com.example.teamprojectsolocode.NoticeFragment"
+        android:name="com.example.teamprojectsolocode.Notice.NoticeFragment"
         android:label="fragment_notice"
         tools:layout="@layout/fragment_notice" />
 </navigation>
