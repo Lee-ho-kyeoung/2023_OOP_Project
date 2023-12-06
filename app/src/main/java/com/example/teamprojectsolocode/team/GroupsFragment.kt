@@ -1,4 +1,4 @@
-package com.example.teamprojectsolocode
+package com.example.teamprojectsolocode.team
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,15 +8,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.teamprojectsolocode.team.Teams
-import com.example.teamprojectsolocode.team.TeamsAdapter
+import com.example.teamprojectsolocode.R
+import com.example.teamprojectsolocode.RecyclerViewDecoration
 import com.example.teamprojectsolocode.databinding.FragmentGroupsBinding
 import com.example.teamprojectsolocode.viewmodel.TeamsViewModel
 
 class GroupsFragment : Fragment() {
 
     private val viewModel: TeamsViewModel by activityViewModels() // by는 위임의 뜻
-    private var teamList = arrayListOf<Teams>()
+    private var myTeamList = arrayListOf<Teams>()
     private lateinit var binding: FragmentGroupsBinding //binding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,8 +36,8 @@ class GroupsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.teamList.observe(viewLifecycleOwner) {
-            teamList = viewModel.teamList.value?: arrayListOf() // teamList에 viewModel의 리스트를 넣어줌
-            binding.recTeams.adapter = TeamsAdapter(teamList) {position, teams ->
+            myTeamList = viewModel.teamList.value?: arrayListOf() // teamList에 viewModel의 리스트를 넣어줌
+            binding.recTeams.adapter = TeamsAdapter(myTeamList) {position, teams ->
                 val bundle = Bundle()
                 bundle.putInt("position", position)
                 findNavController().navigate(R.id.action_groupsFragment_to_groupInfoFragment, bundle)
@@ -48,7 +48,7 @@ class GroupsFragment : Fragment() {
             findNavController().navigate(R.id.action_groupsFragment_to_searchTeamFragment)
         }
         binding.btnTeamEdit.setOnClickListener { // 팀 생성 버튼 누를 때 액션
-            findNavController().navigate(R.id.action_groupsFragment_to_editTeamFragment)
+            findNavController().navigate(R.id.action_groupsFragment_to_createTeamFragment)
         }
     }
 }

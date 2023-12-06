@@ -7,12 +7,9 @@
 
     <fragment
         android:id="@+id/groupsFragment"
-        android:name="com.example.teamprojectsolocode.GroupsFragment"
+        android:name="com.example.teamprojectsolocode.team.GroupsFragment"
         android:label="나의 팀"
         tools:layout="@layout/fragment_groups">
-        <action
-            android:id="@+id/action_groupsFragment_to_editTeamFragment"
-            app:destination="@id/editTeamFragment" />
         <action
             android:id="@+id/action_groupsFragment_to_scheduleFragment2"
             app:destination="@id/scheduleFragment" />
@@ -22,6 +19,9 @@
         <action
             android:id="@+id/action_groupsFragment_to_groupInfoFragment"
             app:destination="@id/groupInfoFragment" />
+        <action
+            android:id="@+id/action_groupsFragment_to_createTeamFragment"
+            app:destination="@id/createTeamFragment" />
     </fragment>
     <fragment
         android:id="@+id/scheduleFragment"
@@ -36,17 +36,17 @@
             app:destination="@id/editScheduleFragment" />
     </fragment>
     <fragment
-        android:id="@+id/editTeamFragment"
-        android:name="com.example.teamprojectsolocode.EditTeamFragment"
+        android:id="@+id/createTeamFragment"
+        android:name="com.example.teamprojectsolocode.team.CreateTeamFragment"
         android:label="팀 생성"
-        tools:layout="@layout/fragment_edit_team" >
+        tools:layout="@layout/fragment_create_team">
         <action
-            android:id="@+id/action_editTeamFragment_to_groupsFragment"
+            android:id="@+id/action_createTeamFragment_to_groupsFragment"
             app:destination="@id/groupsFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchTeamFragment"
-        android:name="com.example.teamprojectsolocode.SearchTeamFragment"
+        android:name="com.example.teamprojectsolocode.team.SearchTeamFragment"
         android:label="팀 검색"
         tools:layout="@layout/fragment_search_team" >
         <action

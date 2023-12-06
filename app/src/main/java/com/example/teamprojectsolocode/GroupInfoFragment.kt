@@ -18,7 +18,7 @@ import com.google.firebase.database.ValueEventListener
 class GroupInfoFragment : Fragment() {
     private lateinit var activityRecyclerView: RecyclerView
     private lateinit var memberRecyclerView: RecyclerView
-
+/*
     override fun onCreate(savedInstanceState: Bundle?) { // 시작할때 세팅
         super.onCreate(savedInstanceState)
         val receivedBundle = arguments // 넘겨받은 번들
@@ -26,11 +26,16 @@ class GroupInfoFragment : Fragment() {
 
         FBRef.myTeamListRef.addValueEventListener(object: ValueEventListener{ // 액션바 제목 설정
             override fun onDataChange(snapshot: DataSnapshot) {
-                (activity as MainActivity).supportActionBar?.title = snapshot.child(position.toString()).child("name").value.toString()
+                val pinNum = snapshot.child(position.toString()).value.toString()
+                FBRef.teamListRef.addValueEventListener(object: ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        (activity as MainActivity).supportActionBar?.title = snapshot.child(pinNum).child("teamContent").child("name").value.toString()
+                    }
+                    override fun onCancelled(error: DatabaseError) {}
+                })
             }
             override fun onCancelled(error: DatabaseError) {}
         })
-
     }
 
     override fun onCreateView(
@@ -70,7 +75,6 @@ class GroupInfoFragment : Fragment() {
         */
 
         return binding.root // Inflate the layout for this fragment
-    }
+    }*/
 }
-
 
