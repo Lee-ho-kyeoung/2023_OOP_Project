@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.teamprojectsolocode.R
-import com.example.teamprojectsolocode.databinding.FragmentEditScheduleBinding
 import com.example.teamprojectsolocode.databinding.FragmentMakeScheduleBinding
 import com.example.teamprojectsolocode.viewmodel.CreateScheduleViewModel
 import java.text.SimpleDateFormat

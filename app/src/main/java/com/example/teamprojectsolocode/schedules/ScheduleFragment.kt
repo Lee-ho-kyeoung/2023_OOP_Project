@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.teamprojectsolocode.R
 import com.example.teamprojectsolocode.RecyclerViewDecoration
 import com.example.teamprojectsolocode.databinding.FragmentScheduleBinding
-import com.example.teamprojectsolocode.repository.ScheduleRepository
 import com.example.teamprojectsolocode.viewmodel.ScheduleViewModel
 
 class ScheduleFragment : Fragment() {

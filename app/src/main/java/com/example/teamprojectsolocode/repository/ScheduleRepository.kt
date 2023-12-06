@@ -1,7 +1,5 @@
 package com.example.teamprojectsolocode.repository
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import com.example.teamprojectsolocode.databinding.FragmentEditScheduleBinding
 import com.example.teamprojectsolocode.firebasedb.FBRef
@@ -10,12 +8,7 @@ import com.example.teamprojectsolocode.schedules.ScheduleInfo
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.temporal.ChronoUnit
 import java.util.Calendar
-import java.util.Date
-
 
 class ScheduleRepository {
     fun observeScheduleList(scheduleList: MutableLiveData<ArrayList<Schedule>>) {
@@ -24,9 +17,7 @@ class ScheduleRepository {
             override fun onDataChange(snapshot: DataSnapshot) {
                 scheduleList.postValue(makeScheduleList(snapshot))
             }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
+            override fun onCancelled(error: DatabaseError) {}
         })
     }
 
