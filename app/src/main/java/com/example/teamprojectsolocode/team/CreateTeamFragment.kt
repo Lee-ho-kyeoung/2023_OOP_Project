@@ -31,7 +31,7 @@ class CreateTeamFragment : Fragment() {
         binding = FragmentCreateTeamBinding.inflate(inflater) // binding
         // 이미지 가져오기
         val imagePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
+            if (result.resultCode == Activity.RESULT_OK) { // 이미지 선택 액티비티가 성공적으로 실행되고, 사용자가 이미지를 선택한 경우에만 실행됩니다
                 val data: Intent? = result.data
                 val imageUri = data?.data // 선택된 이미지의 Uri
 
@@ -41,10 +41,10 @@ class CreateTeamFragment : Fragment() {
         }
 
         binding.btnSetImage.setOnClickListener {  // 사진 선택 버튼을 누르면
-            val intent = Intent(Intent.ACTION_PICK)
+            val intent = Intent(Intent.ACTION_PICK)      // intent 생성
             intent.type = "image/*"
 
-            imagePicker.launch(intent)
+            imagePicker.launch(intent)  //imagePicker로 지정된 ActivityResultLauncher에 전달하여 실행
         }
 
         binding.btnCreateTeam.setOnClickListener { // 팀 생성 버튼을 누르면
@@ -59,7 +59,7 @@ class CreateTeamFragment : Fragment() {
             }
 
             if (teamName.isNotBlank() && teamNotice.isNotBlank() && pinNum.isNotBlank() && nickname.isNotBlank()) { // 모든 입력란이 비어있지 않을 때
-                val uploadTask = imageUri?.let { FBRef.storageRef.putFile(it) } // 이미지 업로드
+                val uploadTask = imageUri?.let { FBRef.storageRef.putFile(it) } // null이 아닐때만 이미지 업로드
 
                 uploadTask?.addOnSuccessListener { taskSnapshot ->
                     // 이미지 업로드 성공 시 URL 획득
@@ -70,7 +70,7 @@ class CreateTeamFragment : Fragment() {
                             if(!check) { //중복되지 않으면 팀 생성
                                 viewModel.createTeam(Teams(teamName, teamNotice, pinNum, downloadUrl), nickname)
                                 findNavController().navigate(R.id.action_createTeamFragment_to_groupsFragment) // groupFragment로 이동
-                            } else { //중복되면 오류 메시지
+                            } else {     //중복되면 오류 메시지
                                 Toast.makeText(context, "다른 팀 코드를 입력해주세요. (중복 오류)", Toast.LENGTH_SHORT).show()
                             }
                         }

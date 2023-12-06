@@ -15,8 +15,8 @@ import com.example.teamprojectsolocode.viewmodel.TeamsViewModel
 
 class GroupsFragment : Fragment() {
 
-    private val viewModel: TeamsViewModel by activityViewModels() // by는 위임의 뜻
-    private var myTeamList = arrayListOf<Teams>()
+    private val viewModel: TeamsViewModel by activityViewModels() // TeamsViewModel 연결
+    private var myTeamList = arrayListOf<Teams>()                 // 새로 업데이트 할 내 팀 목록 리스트
     private lateinit var binding: FragmentGroupsBinding //binding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,9 +25,8 @@ class GroupsFragment : Fragment() {
         binding = FragmentGroupsBinding.inflate(inflater) //binding
 
         binding.recTeams.layoutManager = LinearLayoutManager(context) //recycler view 설정
+        binding.recTeams.addItemDecoration(RecyclerViewDecoration(30)) // item layout설정
 
-        binding.recTeams.addItemDecoration(RecyclerViewDecoration(30))
-        // Inflate the layout for this fragment
         return binding.root // binding이 최상위 view가 되기 때문에
     }
 
@@ -41,13 +40,13 @@ class GroupsFragment : Fragment() {
                 val bundle = Bundle()
                 bundle.putInt("position", position)
                 findNavController().navigate(R.id.action_groupsFragment_to_groupInfoFragment, bundle)
-            } // adapter에 바뀐 scheduleList 다시 넣어주기
+            }
         }
 
-        binding.btnTeamSearch.setOnClickListener { // 팀 검색 버튼 누를 때 액션
+        binding.btnTeamSearch.setOnClickListener { // 팀 검색 버튼 누를 때 팀 검색화면으로 이동
             findNavController().navigate(R.id.action_groupsFragment_to_searchTeamFragment)
         }
-        binding.btnTeamEdit.setOnClickListener { // 팀 생성 버튼 누를 때 액션
+        binding.btnTeamEdit.setOnClickListener { // 팀 생성 버튼 누를 때 액션 팀 생성화면으로 이동
             findNavController().navigate(R.id.action_groupsFragment_to_createTeamFragment)
         }
     }
